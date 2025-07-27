@@ -1,0 +1,34 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- Integração com GitVersion -->
+    <Version>$(GitVersion_NuGetVersionV2)</Version>
+    <PackageVersion>$(GitVersion_NuGetVersionV2)</PackageVersion>
+    <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+    <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+    <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>    
+  
+    <!-- Valores padrão para metadata de pacote -->
+    <Company>BlogDoFT</Company>
+    <Authors>Francisco Thiago</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/blogdoft/BlogDoFT.Libs</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/blogdoft/BlogDoFT.Libs</PackageProjectUrl>
+    <Copyright>Copyright © BlogDoFT</Copyright>
+    <PackageTags>csharp;utilities;blogdoft</PackageTags>
+
+    <!-- Impede que pacotes de teste sejam empacotados -->
+    <IsPackable Condition="'$(MSBuildProjectName)' == '*Tests'">false</IsPackable>  
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    <InternalsVisibleTo Include="CodeReviewAnalyzer.Api.Tests" />
+    <InternalsVisibleTo Include="CodeReviewAnalyzer.AzureDevopsItg.Tests" />
+    <InternalsVisibleTo Include="CodeReviewAnalyzer.Database.Tests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,65 @@
+name: Publish NuGet Packages with GitVersion
+
+on:
+  push:  # roda para qualquer push
+    branches:
+      - '**'
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # necessário para o GitVersion funcionar corretamente
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine version with GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v1
+
+      - name: Restore dependencies
+        run: dotnet restore BlogDoFT.Libs.sln
+
+      - name: Test Solution
+        run: dotnet test --no-restore
+
+      - name: Build solution
+        run: dotnet build BlogDoFT.Libs.sln --configuration Release --no-restore
+
+      - name: Pack projects with GitVersion
+        run: |
+          mkdir -p ./nupkgs
+          for proj in $(find src -name '*.csproj'); do
+            dotnet pack "$proj" \
+              --configuration Release \
+              --no-build \
+              /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }} \
+              --output ./nupkgs
+          done
+
+      - name: Push packages to NuGet
+        if: startsWith(github.ref, 'refs/tags/v')      
+        run: |
+          for pkg in ./nupkgs/*.nupkg; do
+            dotnet nuget push "$pkg" \
+              --source https://api.nuget.org/v3/index.json \
+              --api-key ${{ secrets.NUGET_API_KEY }} \
+              --skip-duplicate
+          done

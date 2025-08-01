@@ -10,8 +10,8 @@
     <PackageVersion>$(GitVersion_NuGetVersionV2)</PackageVersion>
     <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
     <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
-    <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>    
-  
+    <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+
     <!-- Valores padrão para metadata de pacote -->
     <Company>BlogDoFT</Company>
     <Authors>Francisco Thiago</Authors>
@@ -23,12 +23,10 @@
     <PackageTags>csharp;utilities;blogdoft</PackageTags>
 
     <!-- Impede que pacotes de teste sejam empacotados -->
-    <IsPackable Condition="'$(MSBuildProjectName)' == '*Tests'">false</IsPackable>  
+    <IsPackable Condition="'$(MSBuildProjectName)' == '*Tests'">false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
-    <InternalsVisibleTo Include="CodeReviewAnalyzer.Api.Tests" />
-    <InternalsVisibleTo Include="CodeReviewAnalyzer.AzureDevopsItg.Tests" />
-    <InternalsVisibleTo Include="CodeReviewAnalyzer.Database.Tests" />
+    <InternalsVisibleTo Include="BlogDoFT.Libs.DapperUtils.Postgres.Tests" />
   </ItemGroup>
 </Project>

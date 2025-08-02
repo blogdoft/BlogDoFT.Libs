@@ -7,7 +7,7 @@ namespace BlogDoFT.Libs.DapperUtils.Postgres;
 [ExcludeFromCodeCoverage]
 public static class DapperUtilsPostgresExtensions
 {
-    public static IServiceCollection AddDapperPostgres(this ServiceCollection services)
+    public static IServiceCollection AddDapperPostgres(this IServiceCollection services)
     {
         return services
             .AddSingleton<IConnectionFactory, NpgConnectionFactory>()
@@ -15,7 +15,7 @@ public static class DapperUtilsPostgresExtensions
     }
 
     public static IServiceCollection AddDapperPostgres(
-        this ServiceCollection services,
+        this IServiceCollection services,
         IConnectionFactory connectionFactory)
     {
         services.AddDapperPostgres();

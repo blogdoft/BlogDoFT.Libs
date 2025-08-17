@@ -3,7 +3,7 @@ name: Publish NuGet Packages with GitVersion
 on:
   push:  # roda para qualquer push
     branches:
-      - '**'
+      - 'main'
     tags:
       - 'v*.*.*'
 

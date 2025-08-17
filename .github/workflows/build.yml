@@ -45,4 +45,5 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"blogdoft_BlogDoFT.Libs" /o:"blogdoft" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           dotnet build
+          dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" --logger "trx"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

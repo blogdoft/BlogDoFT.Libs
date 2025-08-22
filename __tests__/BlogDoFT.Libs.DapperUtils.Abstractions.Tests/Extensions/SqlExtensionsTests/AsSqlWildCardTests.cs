@@ -1,9 +1,9 @@
 using BlogDoFT.Libs.DapperUtils.Abstractions.Extensions;
 using Shouldly;
 
-namespace BlogDoFT.Libs.DapperUtils.Abstractions.Tests.Extensions;
+namespace BlogDoFT.Libs.DapperUtils.Abstractions.Tests.Extensions.SqlExtensionsTests;
 
-public class SqlExtensionsTests
+public class AsSqlWildCardTests
 {
     [Fact]
     public void Should_ReplaceStartToPercent_When_TextContainsStar()

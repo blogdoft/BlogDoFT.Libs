@@ -28,5 +28,6 @@
   <ItemGroup>
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
     <InternalsVisibleTo Include="BlogDoFT.Libs.DapperUtils.Postgres.Tests" />
+    <InternalsVisibleTo Include="BlogDoFT.Libs.WarmUp.Tests" />
   </ItemGroup>
 </Project>

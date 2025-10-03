@@ -1,9 +1,5 @@
 using BlogDoFT.Libs.DapperUtils.Abstractions;
 using BlogDoFT.Libs.DapperUtils.Abstractions.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlogDoFT.Libs.DapperUtils.Postgres.Tests;
 

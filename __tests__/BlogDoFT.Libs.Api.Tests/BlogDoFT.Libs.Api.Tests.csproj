@@ -56,8 +56,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\BlogDoFT.Libs.ResultPattern\BlogDoFT.Libs.ResultPattern.csproj" />
-  </ItemGroup>
-
 </Project>

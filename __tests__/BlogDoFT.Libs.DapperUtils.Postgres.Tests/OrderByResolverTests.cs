@@ -17,7 +17,7 @@ public class OrderByResolverTests
     {
         var resolver = new OrderByResolver(new Dictionary<string, string>());
 
-        var result = resolver.Resolve("");
+        var result = resolver.Resolve(string.Empty);
 
         result.ToString().ShouldBeEmpty();
     }
@@ -27,14 +27,13 @@ public class OrderByResolverTests
     {
         var resolver = new OrderByResolver(new Dictionary<string, string>
         {
-            { "name", "u.name" }
+            { "name", "u.name" },
         });
 
         var result = resolver.Resolve("name");
 
         result.ToString().ShouldBe(
-            $"ORDER BY{Environment.NewLine}u.name ASC{Environment.NewLine}"
-        );
+            $"ORDER BY{Environment.NewLine}u.name ASC{Environment.NewLine}");
     }
 
     [Fact]
@@ -42,14 +41,13 @@ public class OrderByResolverTests
     {
         var resolver = new OrderByResolver(new Dictionary<string, string>
         {
-            { "name", "u.name" }
+            { "name", "u.name" },
         });
 
         var result = resolver.Resolve("name desc");
 
         result.ToString().ShouldBe(
-            $"ORDER BY{Environment.NewLine}u.name DESC{Environment.NewLine}"
-        );
+            $"ORDER BY{Environment.NewLine}u.name DESC{Environment.NewLine}");
     }
 
     [Fact]
@@ -57,14 +55,13 @@ public class OrderByResolverTests
     {
         var resolver = new OrderByResolver(new Dictionary<string, string>
         {
-            { "id", "u.id" }
+            { "id", "u.id" },
         });
 
         var result = resolver.Resolve("id, unknown");
 
         result.ToString().ShouldBe(
-            $"ORDER BY{Environment.NewLine}u.id ASC{Environment.NewLine}"
-        );
+            $"ORDER BY{Environment.NewLine}u.id ASC{Environment.NewLine}");
     }
 
     [Fact]
@@ -73,14 +70,13 @@ public class OrderByResolverTests
         var resolver = new OrderByResolver(new Dictionary<string, string>
         {
             { "id", "u.id" },
-            { "name", "u.name" }
+            { "name", "u.name" },
         });
 
         var result = resolver.Resolve("id DESC, name asc");
 
         result.ToString().ShouldBe(
-            $"ORDER BY{Environment.NewLine}u.id DESC, u.name ASC{Environment.NewLine}"
-        );
+            $"ORDER BY{Environment.NewLine}u.id DESC, u.name ASC{Environment.NewLine}");
     }
 
     [Fact]
@@ -88,14 +84,13 @@ public class OrderByResolverTests
     {
         var resolver = new OrderByResolver(new Dictionary<string, string>
         {
-            { "created", "u.created_at" }
+            { "created", "u.created_at" },
         });
 
         var result = resolver.Resolve("  created   desc  ");
 
         result.ToString().ShouldBe(
-            $"ORDER BY{Environment.NewLine}u.created_at DESC{Environment.NewLine}"
-        );
+            $"ORDER BY{Environment.NewLine}u.created_at DESC{Environment.NewLine}");
     }
 
     [Fact]

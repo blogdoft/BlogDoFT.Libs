@@ -9,9 +9,9 @@ public class ToSearchableTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public void Should_ReturnEmpty_When_InputIsNullOrWhitespace(string? Input)
+    public void Should_ReturnEmpty_When_InputIsNullOrWhitespace(string? input)
     {
-        Input.ToSearchable().ShouldBe(string.Empty);
+        input.ToSearchable().ShouldBe(string.Empty);
     }
 
     [Fact]

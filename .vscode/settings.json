@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "blogdoft",
+        "projectKey": "blogdoft_BlogDoFT.Libs"
+    }
+}

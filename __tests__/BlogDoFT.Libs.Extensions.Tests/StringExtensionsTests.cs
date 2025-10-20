@@ -31,7 +31,7 @@ public class StringExtensionsTests
     [Fact]
     public void Should_ThrowArgumentException_When_OldStringIsEmpty()
     {
-        Should.Throw<ArgumentException>(() => "abc".ReplaceAll("", "x"));
+        Should.Throw<ArgumentException>(() => "abc".ReplaceAll(string.Empty, "x"));
     }
 
     [Fact]

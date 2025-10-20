@@ -75,8 +75,9 @@ public class ResultTests
     {
         // Given
         var successfullResult = new Result<Stub>(new Stub());
+
         // When
-        var _ = ReturnResult(successfullResult);
+        _ = ReturnResult(successfullResult);
 
         // Then
         _functionCallPointer.ShouldBe(SuccessfullCall);
@@ -89,7 +90,7 @@ public class ResultTests
         var failureResult = new Result<Stub>(Failure.DataNotFound);
 
         // When
-        var _ = ReturnResult(failureResult);
+        _ = ReturnResult(failureResult);
 
         // Then
         _functionCallPointer.ShouldBe(FailedCall);
@@ -113,6 +114,7 @@ public class ResultTests
     {
         // Given
         Result<Stub> result = new(new Stub());
+
         // When
         var callResult = result.Map(
             onSuccess: (_) => SuccessfullCall,

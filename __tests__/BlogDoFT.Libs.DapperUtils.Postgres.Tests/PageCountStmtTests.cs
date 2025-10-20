@@ -7,52 +7,52 @@ public class PageCountStmtTests
     [Fact]
     public void Should_BuildCountSql_FromRawQuery()
     {
-        // Arrange
+        // Given
         var baseSql = new StringBuilder("select * from users where active = true");
 
-        // Act
+        // When
         var result = PageCountStmt.BuildCountSql(baseSql);
 
-        // Assert
+        // Then
         result.ToString().ShouldBe("select count(1) from (select * from users where active = true) as counter_result");
     }
 
     [Fact]
     public void Should_AllowSqlWithLineBreaks()
     {
-        // Arrange
+        // Given
         var baseSql = new StringBuilder("select * \nfrom products\nwhere stock > 0");
 
-        // Act
+        // When
         var result = PageCountStmt.BuildCountSql(baseSql);
 
-        // Assert
+        // Then
         result.ToString().ShouldBe("select count(1) from (select * \nfrom products\nwhere stock > 0) as counter_result");
     }
 
     [Fact]
     public void Should_ReturnFormattedSql_WhenEmptyInput()
     {
-        // Arrange
+        // Given
         var baseSql = new StringBuilder();
 
-        // Act
+        // When
         var result = PageCountStmt.BuildCountSql(baseSql);
 
-        // Assert
+        // Then
         result.ToString().ShouldBe("select count(1) from () as counter_result");
     }
 
     [Fact]
     public void Should_NotModifyOriginalInput()
     {
-        // Arrange
+        // Given
         var baseSql = new StringBuilder("select * from test");
 
-        // Act
-        var _ = PageCountStmt.BuildCountSql(baseSql);
+        // When
+        _ = PageCountStmt.BuildCountSql(baseSql);
 
-        // Assert
+        // Then
         baseSql.ToString().ShouldBe("select * from test"); // input deve permanecer inalterado
     }
 }

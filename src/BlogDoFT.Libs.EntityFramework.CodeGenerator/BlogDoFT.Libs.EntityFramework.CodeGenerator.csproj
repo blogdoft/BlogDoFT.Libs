@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <Nullable>enable</Nullable>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+    <PackageId>BlogDoFT.Libs.EntityFramework.CodeGenerator</PackageId>
+    <Title>BlogDoFT EF Code Generator</Title>
+    <Authors>BlogDoFT</Authors>
+    <Description>EF Core predicate source generator with provider-aware LIKE/ILIKE support.</Description>
+    <RepositoryUrl>https://github.com/blogdoft/BlogDoFT.Libs</RepositoryUrl>
+    <PackageTags>efcore;source-generator;filters;predicates;analyzer</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IntermediatePlaceholder>$(IntermediateOutputPath).gitkeep</IntermediatePlaceholder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitLab" Version="8.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions\BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(TargetPath)" Pack="true" PackagePath="analyzers/dotnet/cs" />
+  </ItemGroup>
+
+
+  <Target Name="CreateLibPlaceholder" BeforeTargets="Pack">
+    <WriteLinesToFile File="$(IntermediatePlaceholder)" Lines="" Overwrite="true" />
+    <ItemGroup>
+      <None Include="$(IntermediatePlaceholder)" Pack="true" PackagePath="lib/netstandard2.0/.gitkeep" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <None Include="_._" Pack="true" PackagePath="lib/netstandard2.0/.gitkeep" />
+  </ItemGroup>
+</Project>

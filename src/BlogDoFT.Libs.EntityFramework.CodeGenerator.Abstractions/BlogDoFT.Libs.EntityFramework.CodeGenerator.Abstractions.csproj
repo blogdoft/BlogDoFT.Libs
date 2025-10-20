@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackageId>BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions</PackageId>
+    <Title>BlogDoFT EF Code Generator - Abstractions</Title>
+    <Authors>BlogDoFT</Authors>
+    <Description>Attributes and enums for BlogDoFT EF Predicate Source Generator.</Description>
+    <RepositoryUrl>https://github.com/blogdoft/BlogDoFT.Libs</RepositoryUrl>
+    <PackageTags>efcore;source-generator;filters;predicates</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+</Project>

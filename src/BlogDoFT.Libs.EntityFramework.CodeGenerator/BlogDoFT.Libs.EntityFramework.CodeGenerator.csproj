@@ -4,9 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Nullable>enable</Nullable>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <IsPackable>true</IsPackable>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
     <PackageId>BlogDoFT.Libs.EntityFramework.CodeGenerator</PackageId>
     <Title>BlogDoFT EF Code Generator</Title>
@@ -19,6 +21,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IntermediatePlaceholder>$(IntermediateOutputPath).gitkeep</IntermediatePlaceholder>
+    <PackageType>Analyzer</PackageType>
+    <DevelopmentDependency>true</DevelopmentDependency>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,16 +33,28 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitLab" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
-
+  <ItemGroup>
+      <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions\BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions.csproj" />
   </ItemGroup>
 
+  <!-- Copia a DLL do generator para a pasta padrão de analyzers no .nupkg -->
   <ItemGroup>
-    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" />
+    <None Include="$(OutputPath)$(AssemblyName).dll"
+          Pack="true"
+          PackagePath="analyzers/dotnet/cs"
+          Visible="false" />
+    <!-- (opcional) se você tiver satélites, adicionais aqui -->
   </ItemGroup>
-
-
+  <ItemGroup>
+    <None Include="$(OutputPath)$(AssemblyName).dll"
+          Pack="true"
+          PackagePath="lib/netstandard2.0"
+          Visible="false" />
+    <!-- (opcional) se você tiver satélites, adicionais aqui -->
+  </ItemGroup>
   <Target Name="CreateLibPlaceholder" BeforeTargets="Pack">
     <WriteLinesToFile File="$(IntermediatePlaceholder)" Lines="" Overwrite="true" />
     <ItemGroup>

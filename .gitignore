@@ -6,6 +6,8 @@
 app/**
 nupkgs/
 nupkg
+coverage_report
+report
 
 # dotenv files
 **/*.env

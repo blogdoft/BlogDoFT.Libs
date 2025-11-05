@@ -1,6 +1,6 @@
 namespace BlogDoFT.Libs.DomainNotifications;
 
-public class DomainNotificationBag : IDomainNotifications
+internal class DomainNotificationBag : IDomainNotifications
 {
     private readonly List<DomainNotification> _notifications = [];
 

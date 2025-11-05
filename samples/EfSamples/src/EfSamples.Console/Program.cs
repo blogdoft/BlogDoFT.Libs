@@ -18,23 +18,17 @@ var services = new ServiceCollection()
             o.UseUtcTimestamp = false;
             o.IncludeScopes = false;
         });
-
-        // Mostra apenas o que interessa do EF Core no console
-        builder.AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information); // SQL executada
+        builder.AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information);
         builder.AddFilter(DbLoggerCategory.Database.Transaction.Name, LogLevel.Information);
         builder.SetMinimumLevel(LogLevel.Information);
     })
     .AddDbContext<BloggingContext>((sp, options) =>
     {
-        // Se o provider é definido dentro do OnConfiguring, não precisamos repetir aqui.
-        // Só anexamos o LoggerFactory e habilitamos opções de diagnóstico.
         var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
         options
             .UseLoggerFactory(loggerFactory)
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging()
-
-            // Loga somente eventos de comando do relacional (a SQL) e erros
             .LogTo(
                 message => loggerFactory.CreateLogger("EF.SQL").LogInformation(message),
                 (eventId, level) =>
@@ -50,6 +44,8 @@ var provider = scope.ServiceProvider;
 var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("App");
 
 await using var db = provider.GetRequiredService<BloggingContext>();
+await db.Database.EnsureCreatedAsync();
+
 
 Console.Clear();
 logger.LogInformation("Database path: {path}", db.DbPath);
@@ -204,3 +200,4 @@ await executeQuery(new SamplesTableQuery()
 db.SampleTables.RemoveRange(samples);
 await db.SaveChangesAsync();
 
+await db.Database.EnsureDeletedAsync();

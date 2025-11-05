@@ -4,7 +4,7 @@ public class DomainNotificationBagBaseTests
 {
     protected Faker Faker { get; } = BogusFixtures.Get();
 
-    protected static DomainNotificationBag BuildNotification() =>
+    internal static DomainNotificationBag BuildNotification() =>
         new DomainNotificationBag();
 
     protected DomainNotification BuildNotificationStubs() =>

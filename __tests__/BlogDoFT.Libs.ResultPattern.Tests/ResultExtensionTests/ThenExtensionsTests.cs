@@ -1,7 +1,7 @@
 #pragma warning disable SA1313  // Parameter should begin with lower-case letter
 namespace BlogDoFT.Libs.ResultPattern.Tests.ResultExtensionTests;
 
-public class BindExtensionsTests
+public class ThenExtensionsTests
 {
     [Fact]
     public void Should_CallNextAndReturnResult_When_BindSucceeds()
@@ -12,7 +12,7 @@ public class BindExtensionsTests
         Result<string> Next(int x) => $"val:{x}";
 
         // When
-        var result = initial.Bind<int, string>(Next);
+        var result = initial.Then<int, string>(Next);
 
         // Then
         result.IsSuccess.ShouldBeTrue();
@@ -34,7 +34,7 @@ public class BindExtensionsTests
         }
 
         // When
-        var result = initial.Bind<int, string>(Next);
+        var result = initial.Then<int, string>(Next);
 
         // Then
         result.IsSuccess.ShouldBeFalse();
@@ -52,7 +52,7 @@ public class BindExtensionsTests
             => Task.FromResult<Result<string>>($"ok:{x}");
 
         // When
-        var result = await task.BindAsync<int, string>(NextAsync);
+        var result = await task.ThenAsync<int, string>(NextAsync);
 
         // Then
         result.IsSuccess.ShouldBeTrue();
@@ -74,7 +74,7 @@ public class BindExtensionsTests
         }
 
         // When
-        var result = await task.BindAsync<int, string>(NextAsync);
+        var result = await task.ThenAsync<int, string>(NextAsync);
 
         // Then
         result.IsSuccess.ShouldBeFalse();
@@ -92,7 +92,7 @@ public class BindExtensionsTests
             => Task.FromResult<Result<string>>((x * 2).ToString());
 
         // When
-        var finalResult = await result.BindAsync<int, string>(NextAsync);
+        var finalResult = await result.ThenAsync<int, string>(NextAsync);
 
         // Then
         finalResult.IsSuccess.ShouldBeTrue();
@@ -114,7 +114,7 @@ public class BindExtensionsTests
         }
 
         // When
-        var finalResult = await result.BindAsync<int, string>(NextAsync);
+        var finalResult = await result.ThenAsync<int, string>(NextAsync);
 
         // Then
         finalResult.IsSuccess.ShouldBeFalse();
@@ -131,7 +131,7 @@ public class BindExtensionsTests
         Result<string> Next(int x) => (Result<string>)$"n:{x}";
 
         // When
-        var result = await task.BindAsync<int, string>(Next);
+        var result = await task.ThenAsync<int, string>(Next);
 
         // Then
         result.IsSuccess.ShouldBeTrue();
@@ -153,7 +153,7 @@ public class BindExtensionsTests
         }
 
         // When
-        var result = await task.BindAsync<int, string>(Next);
+        var result = await task.ThenAsync<int, string>(Next);
 
         // Then
         result.IsSuccess.ShouldBeFalse();
@@ -171,7 +171,7 @@ public class BindExtensionsTests
         Result<string> Next(int _) => (Result<string>)nextFailure;
 
         // When
-        var result = initial.Bind<int, string>(Next);
+        var result = initial.Then<int, string>(Next);
 
         // Then
         result.IsSuccess.ShouldBeFalse();
@@ -188,7 +188,7 @@ public class BindExtensionsTests
         Task<Result<string>> NextAsync(int _) => Task.FromResult<Result<string>>(nextFailure);
 
         // When
-        var result = await task.BindAsync<int, string>(NextAsync);
+        var result = await task.ThenAsync<int, string>(NextAsync);
 
         // Then
         result.IsSuccess.ShouldBeFalse();

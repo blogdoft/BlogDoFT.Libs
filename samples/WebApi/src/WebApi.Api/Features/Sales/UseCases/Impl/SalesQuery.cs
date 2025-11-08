@@ -30,7 +30,6 @@ public class SalesQuery : ISalesQuery
 
         var responseResult = SaleResponse.From(entityResult.Value);
 
-
         if (responseResult.IsFailure)
         {
             _notifications.Add(responseResult);

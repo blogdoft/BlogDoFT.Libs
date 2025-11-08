@@ -1,0 +1,11 @@
+# Domain Glossary
+- **Result / Result<T>**: type that wraps success/failure. Use it for every operation that can yield recoverable errors.
+- **Failure**: record (`Code`, `Message`) embedded in `Result` and notifications. Codes follow `kebab-case` (e.g., `common-404`).
+- **Domain Notification**: message aggregated via `IDomainNotifications`. Used to return multiple issues (validation, business) without exceptions.
+- **WarmUp Command**: implementation of `IWarmUpCommand` executed by the hosted service at startup to preload caches, connections, or resources.
+- **WarmUp Health Check**: `WarmUpHealthCheck` marks when all commands finish and answers the health endpoint with `Healthy/Degraded`.
+- **Predicate DTO**: object annotated with `[GeneratePredicate<TEntity>]` describing filters for EF Core queries. Generates `HasFilter/ToPredicate` methods.
+- **PageFilter**: pagination contract used by the Dapper utilities (`PageSize`, `PageNumber`, `Order`).
+- **PaginatedSqlBuilder**: builder that combines `ResultSet`, filters (`WhereBuilder`), ordering (`OrderByResolver`), and pagination (`SqlPagination`) for Postgres.
+- **Connection Factory**: implementations of `IConnectionFactory` produce fresh `IDbConnection` instances (e.g., `NpgConnectionFactory`).
+- **Header Helpers**: methods from `BlogDoFT.Libs.Api` to derive `X-Correlation-ID`, `X-Forwarded-Host`, and default `Accept-Language` in APIs.

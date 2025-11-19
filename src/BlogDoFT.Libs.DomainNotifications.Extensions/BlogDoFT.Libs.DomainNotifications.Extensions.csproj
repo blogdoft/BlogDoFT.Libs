@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\BlogDoFT.Libs.DomainNotifications\BlogDoFT.Libs.DomainNotifications.csproj" />
-    <ProjectReference Include="..\BlogDoFT.Libs.ResultPattern\BlogDoFT.Libs.ResultPattern.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogDoFT.Libs.DomainNotifications\BlogDoFT.Libs.DomainNotifications.csproj" />
+    <ProjectReference Include="..\BlogDoFT.Libs.ResultPattern\BlogDoFT.Libs.ResultPattern.csproj" />
+  </ItemGroup>
 
 </Project>

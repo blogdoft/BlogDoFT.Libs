@@ -8,6 +8,8 @@ nupkgs/
 nupkg
 coverage_report
 report
+.repomix
+repomix-output.md
 
 # dotenv files
 **/*.env

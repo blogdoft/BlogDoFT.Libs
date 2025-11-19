@@ -39,7 +39,7 @@ public static class SalesController
 
             return Results.Ok(result.Value);
         })
-        .WithName($"{nameof(SalesController)}_Post")
+        .WithName($"{nameof(SalesController)}_Get")
         .WithSummary("Return sale")
         .WithDescription("Returns sale's details");
 

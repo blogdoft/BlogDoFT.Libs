@@ -22,7 +22,7 @@ public static class MapExtension
         this Result<TValue> result,
         Func<TValue, TReturn> onSuccess,
         Func<Failure, TReturn> onFailure) =>
-        result.IsSuccess ? onSuccess(result.Value!) : onFailure(result.Failure!);
+        result.IsSuccess ? onSuccess(result.Value!) : onFailure(result.Failure);
 
     /// <summary>
     /// Maps a <see cref="Result{TValue}"/> into a value of type <typeparamref name="TReturn"/>,
@@ -48,6 +48,6 @@ public static class MapExtension
         var result = await task.ConfigureAwait(false);
         return result.IsSuccess
             ? onSuccess(result.Value!)
-            : onFailure(result.Failure!);
+            : onFailure(result.Failure);
     }
 }

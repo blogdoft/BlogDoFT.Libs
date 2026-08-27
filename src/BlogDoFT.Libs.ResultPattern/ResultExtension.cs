@@ -21,7 +21,7 @@ public static class ResultExtension
         this Result<TValue> result,
         Func<TValue> onSuccess,
         Func<Failure, TValue> onFailure) =>
-        result.IsSuccess ? onSuccess() : onFailure(result.Failure!);
+        result.IsSuccess ? onSuccess() : onFailure(result.Failure);
 
     /// <summary>
     /// Executes the corresponding delegate depending on the success or failure state
@@ -44,6 +44,6 @@ public static class ResultExtension
         Func<Failure, TValue> onFailure)
     {
         var result = await task.ConfigureAwait(false);
-        return result.IsSuccess ? onSuccess() : onFailure(result.Failure!);
+        return result.IsSuccess ? onSuccess() : onFailure(result.Failure);
     }
 }

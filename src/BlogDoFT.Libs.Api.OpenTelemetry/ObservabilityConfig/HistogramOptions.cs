@@ -1,5 +1,8 @@
 namespace BlogDoFT.Libs.Api.OpenTelemetry.ObservabilityConfig;
 
+/// <summary>
+/// Defines the bucketing strategy used for histogram metrics.
+/// </summary>
 public enum HistogramOptions
 {
     /// <summary>

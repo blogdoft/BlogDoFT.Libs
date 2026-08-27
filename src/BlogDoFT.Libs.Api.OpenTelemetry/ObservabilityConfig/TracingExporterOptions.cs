@@ -1,5 +1,8 @@
 namespace BlogDoFT.Libs.Api.OpenTelemetry.ObservabilityConfig;
 
+/// <summary>
+/// Defines the destination used to export trace data.
+/// </summary>
 public enum TracingExporterOptions
 {
     /// <summary>

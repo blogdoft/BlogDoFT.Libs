@@ -15,8 +15,18 @@ using System.Diagnostics.Metrics;
 
 namespace BlogDoFT.Libs.Api.OpenTelemetry.Extensions;
 
+/// <summary>
+/// Provides extension methods to register and enable OpenTelemetry instrumentation for metrics, tracing and logs.
+/// </summary>
 public static class OpenTelemetryExtension
 {
+    /// <summary>
+    /// Registers OpenTelemetry services (metrics, tracing and logs) based on the <c>Observability</c> section of
+    /// <paramref name="configuration"/>. If that section is not present, no OpenTelemetry services are registered.
+    /// </summary>
+    /// <param name="services">The service collection to add the OpenTelemetry services to.</param>
+    /// <param name="configuration">The application configuration used to build the <see cref="Observability"/> settings.</param>
+    /// <returns>The same <paramref name="services"/> instance, for chaining.</returns>
     public static IServiceCollection AddOtel(this IServiceCollection services, IConfiguration configuration)
     {
         var hasObservability = configuration.GetSection(nameof(Observability)).Exists();
@@ -39,6 +49,12 @@ public static class OpenTelemetryExtension
             .Services;
     }
 
+    /// <summary>
+    /// Maps the Prometheus scraping endpoint when the registered <see cref="Observability"/> configuration
+    /// selects Prometheus as the metrics exporter.
+    /// </summary>
+    /// <param name="app">The application builder to configure.</param>
+    /// <returns>The same <paramref name="app"/> instance, for chaining.</returns>
     public static IApplicationBuilder UseOpenTelemetry(this IApplicationBuilder app)
     {
         var observability = app.ApplicationServices.GetRequiredService<IOptions<Observability>>().Value;

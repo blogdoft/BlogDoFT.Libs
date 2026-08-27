@@ -1,5 +1,9 @@
 namespace BlogDoFT.Libs.ResultPattern;
 
+/// <summary>
+/// Provides extension methods to chain operations that each return a <see cref="Result{T}"/>,
+/// short-circuiting the chain as soon as a failure occurs.
+/// </summary>
 public static class ThenExtension
 {
     /// <summary>

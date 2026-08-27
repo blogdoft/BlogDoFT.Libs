@@ -7,6 +7,11 @@ namespace BlogDoFT.Libs.DapperUtils.Postgres;
 [ExcludeFromCodeCoverage]
 public static class DapperUtilsPostgresExtensions
 {
+    /// <summary>
+    /// Registers the default Postgres-backed <see cref="IConnectionFactory"/> and <see cref="IDatabaseFacade"/> implementations.
+    /// </summary>
+    /// <param name="services">The service collection to register the dependencies into.</param>
+    /// <returns>The same service collection, to allow chaining.</returns>
     public static IServiceCollection AddDapperPostgres(this IServiceCollection services)
     {
         return services
@@ -14,6 +19,13 @@ public static class DapperUtilsPostgresExtensions
             .AddScoped<IDatabaseFacade, PostgresDatabaseFacade>();
     }
 
+    /// <summary>
+    /// Registers the default Postgres-backed <see cref="IDatabaseFacade"/> implementation and replaces the
+    /// registered <see cref="IConnectionFactory"/> with the supplied instance.
+    /// </summary>
+    /// <param name="services">The service collection to register the dependencies into.</param>
+    /// <param name="connectionFactory">The connection factory instance to use instead of the default one.</param>
+    /// <returns>The same service collection, to allow chaining.</returns>
     public static IServiceCollection AddDapperPostgres(
         this IServiceCollection services,
         IConnectionFactory connectionFactory)

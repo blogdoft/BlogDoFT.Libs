@@ -27,17 +27,19 @@ public interface IDomainNotifications
     /// <summary>
     /// Get a new IEnumerable instance from Domain Notifications.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>An enumerable collection of the stored domain notifications.</returns>
     IEnumerable<DomainNotification> ToEnumerable();
 
     /// <summary>
     /// Return a DomainNotification at index
     /// </summary>
+    /// <param name="index">The zero-based index of the notification to retrieve.</param>
+    /// <returns>The domain notification at the specified index.</returns>
     DomainNotification this[int index] { get; }
 
     /// <summary>
     /// Returns how many DomainNotifications has stored.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The number of stored domain notifications.</returns>
     int Count();
 }

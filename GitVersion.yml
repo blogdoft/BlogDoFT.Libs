@@ -1,0 +1,5 @@
+next-version: 1.11.0
+mode: ContinuousDelivery
+branches:
+  main:
+    increment: Patch

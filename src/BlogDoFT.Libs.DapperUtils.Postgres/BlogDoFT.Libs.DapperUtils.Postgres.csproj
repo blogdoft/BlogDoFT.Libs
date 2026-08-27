@@ -45,4 +45,8 @@
     <ProjectReference Include="..\BlogDoFT.Libs.DapperUtils.Abstractions\BlogDoFT.Libs.DapperUtils.Abstractions.csproj" />
     <ProjectReference Include="..\BlogDoFT.Libs.Extensions\BlogDoFT.Libs.Extensions.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>

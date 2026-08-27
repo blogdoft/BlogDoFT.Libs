@@ -24,24 +24,17 @@ public static class WarmUpServiceExtension
 {
     /// <summary>
     /// Registers the warm-up health check and hosted service, using an <see cref="ILoggerFactory"/> resolved
-    /// from <paramref name="services"/> to log warm-up progress.
+    /// from the application's service provider (at DI-resolve time, not registration time) to log warm-up progress.
     /// </summary>
     /// <param name="services">The service collection to add the warm-up registrations to.</param>
     /// <returns>The same <see cref="IServiceCollection"/> instance, so calls can be chained.</returns>
     public static IServiceCollection AddWarmUp(
-        this IServiceCollection services)
-    {
-        using var provider = services.BuildServiceProvider();
-        using var scope = provider.CreateScope();
-        var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>()
-            .CreateLogger("WarmUp");
-
-        void LogInfo(string logInfo) => logger.LogInformation(logInfo);
-        void LogError(string logError) => logger.LogError(logError);
-        void LogTrace(string logTrace) => logger.LogTrace(logTrace);
-
-        return services.AddWarmUp(LogInfo, LogError, LogTrace);
-    }
+        this IServiceCollection services) =>
+        services
+            .AddSingleton<WarmUpHealthCheck>()
+            .AddHostedService<WarmUpHostedService>()
+            .ConfigureHealthCheck()
+            .AddWarmServices();
 
     /// <summary>
     /// Registers the warm-up health check and hosted service, using the supplied delegates to log warm-up progress.
@@ -125,5 +118,31 @@ public static class WarmUpServiceExtension
                 logError,
                 logTrace,
                 provider.GetRequiredService<WarmUpHealthCheck>()));
+
+    // Resolves the ILoggerFactory from the real provider each command is built with, at DI-resolve time
+    // (host startup), instead of building a throwaway provider from the still-being-configured collection.
+    private static IServiceCollection AddWarmServices(this IServiceCollection services) =>
+        services
+            .AddTransient(provider =>
+            {
+                var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("WarmUp");
+                return new PreloadingCommand(
+                    services,
+                    provider,
+                    message => logger.LogInformation(message),
+                    message => logger.LogError(message),
+                    message => logger.LogTrace(message));
+            })
+            .AddTransient(provider =>
+            {
+                var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("WarmUp");
+                return new WarmUpExecutor(
+                    services,
+                    provider,
+                    message => logger.LogInformation(message),
+                    message => logger.LogError(message),
+                    message => logger.LogTrace(message),
+                    provider.GetRequiredService<WarmUpHealthCheck>());
+            });
 }
 #pragma warning restore CA2254 // Template should be a static expression

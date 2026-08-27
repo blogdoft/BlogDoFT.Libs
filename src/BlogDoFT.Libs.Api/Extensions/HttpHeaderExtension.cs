@@ -43,7 +43,7 @@ public static class HttpHeaderExtension
             host = httpRequest.Host.Value;
         }
 
-        return host!;
+        return host;
     }
 
     /// <summary>

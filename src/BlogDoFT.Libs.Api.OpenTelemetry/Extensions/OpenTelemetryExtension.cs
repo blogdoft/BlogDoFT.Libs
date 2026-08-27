@@ -152,7 +152,7 @@ public static class OpenTelemetryExtension
                         }
 
                         tracing.ConfigureServices(services =>
-                            services.AddSingleton(Options.Create(observability.ZipkinExporterOptions!)));
+                            services.AddSingleton(Options.Create(observability.ZipkinExporterOptions)));
 
                         tracing.AddZipkinExporter();
                         break;

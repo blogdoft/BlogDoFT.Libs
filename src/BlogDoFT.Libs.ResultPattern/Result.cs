@@ -66,7 +66,11 @@ public sealed class Result<TValue> : Result
         }
     }
 
-    public static implicit operator Result<TValue>(TValue value) => new(value);
+    public static implicit operator Result<TValue>(TValue value) => FromSuccess(value);
 
-    public static implicit operator Result<TValue>(Failure failure) => new(failure);
+    public static implicit operator Result<TValue>(Failure failure) => FromFailure(failure);
+
+    public static Result<TValue> FromSuccess(TValue value) => new(value);
+
+    public static Result<TValue> FromFailure(Failure failure) => new(failure);
 }

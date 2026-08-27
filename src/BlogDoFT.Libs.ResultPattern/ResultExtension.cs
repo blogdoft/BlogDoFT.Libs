@@ -1,5 +1,9 @@
 namespace BlogDoFT.Libs.ResultPattern;
 
+/// <summary>
+/// Provides extension methods to terminate a <see cref="Result{TValue}"/> pipeline by
+/// executing a success or failure delegate and returning its produced value.
+/// </summary>
 public static class ResultExtension
 {
     /// <summary>

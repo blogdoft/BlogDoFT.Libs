@@ -1,5 +1,9 @@
 namespace BlogDoFT.Libs.ResultPattern;
 
+/// <summary>
+/// Provides extension methods to run side effects (e.g. logging, notifications) when a
+/// <see cref="Result{T}"/> represents a failure, without altering the result itself.
+/// </summary>
 public static class TapFailureExtension
 {
     /// <summary>

@@ -1,5 +1,9 @@
 namespace BlogDoFT.Libs.ResultPattern;
 
+/// <summary>
+/// Provides extension methods to transform a <see cref="Result{TValue}"/> into a plain
+/// value by mapping both its success and failure states.
+/// </summary>
 public static class MapExtension
 {
     /// <summary>

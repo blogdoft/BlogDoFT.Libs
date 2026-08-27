@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace BlogDoFT.Libs.EntityFramework.CodeGenerator.Diagnostics;
 
+/// <summary>
+/// Provides the <see cref="DiagnosticDescriptor"/> instances reported by <see cref="Generators.PredicateGenerator"/>.
+/// </summary>
 public static class DiagnosticDescriptors
 {
     private const string DefaultCategoryUsage = "PredicateGenerator.Usage";
@@ -10,6 +13,9 @@ public static class DiagnosticDescriptors
     private const string DefaultCategoryGeneration = "PredicateGenerator.Generation";
     private const string HelpBase = "https://example.com/docs/predicate-generator/"; // opcional: troque para sua URL
 
+    /// <summary>
+    /// Reported when a filter DTO annotated with <c>[GeneratePredicate&lt;TEntity&gt;]</c> is not declared as <c>partial</c>.
+    /// </summary>
     public static readonly DiagnosticDescriptor FilterDtoMustBePartial = new(
         id: "PG001",
         title: "Filter DTO must be partial",
@@ -20,6 +26,9 @@ public static class DiagnosticDescriptors
         description: "The source generator emits members (e.g., ToPredicate, HasFilter) into a partial type. Non-partial types cannot be augmented.",
         helpLinkUri: HelpLink("PG001"));
 
+    /// <summary>
+    /// Reported when a property's <c>TargetProperty</c> path cannot be resolved on the target entity type.
+    /// </summary>
     public static readonly DiagnosticDescriptor TargetPropertyPathInvalid = new(
         id: "PG002",
         title: "Invalid TargetProperty path",
@@ -30,6 +39,9 @@ public static class DiagnosticDescriptors
         description: "The TargetProperty must reference a valid member path on the target entity (supports dotted paths).",
         helpLinkUri: HelpLink("PG002"));
 
+    /// <summary>
+    /// Reported when a DTO property is annotated with a filter attribute the generator does not recognize.
+    /// </summary>
     public static readonly DiagnosticDescriptor UnsupportedFilterAttribute = new(
         id: "PG003",
         title: "Unsupported filter attribute",
@@ -40,6 +52,9 @@ public static class DiagnosticDescriptors
         description: "Only StringFilterAttribute, NumericFilterAttribute, TemporalFilterAttribute, and BooleanFilterAttribute are recognized.",
         helpLinkUri: HelpLink("PG003"));
 
+    /// <summary>
+    /// Reported when a filter DTO has no properties annotated with a supported filter attribute.
+    /// </summary>
     public static readonly DiagnosticDescriptor NoFilterablePropertiesFound = new(
         id: "PG004",
         title: "No filterable properties found",
@@ -50,6 +65,9 @@ public static class DiagnosticDescriptors
         description: "The generator emits a trivial predicate when no annotated properties are present.",
         helpLinkUri: HelpLink("PG004"));
 
+    /// <summary>
+    /// Reported when a declared <c>ComparisonOperator</c> does not apply to the type of the target member.
+    /// </summary>
     public static readonly DiagnosticDescriptor ComparisonOperatorNotApplicable = new(
         id: "PG005",
         title: "Comparison operator not applicable",
@@ -60,6 +78,9 @@ public static class DiagnosticDescriptors
         description: "Ensure the operator matches the target member type (numeric or temporal).",
         helpLinkUri: HelpLink("PG005"));
 
+    /// <summary>
+    /// Reported when the entity type argument of <c>[GeneratePredicate&lt;TEntity&gt;]</c> cannot be resolved.
+    /// </summary>
     public static readonly DiagnosticDescriptor EntityTypeNotResolved = new(
         id: "PG010",
         title: "Cannot resolve entity type",
@@ -70,6 +91,9 @@ public static class DiagnosticDescriptors
         description: "The generic attribute must provide a valid type argument corresponding to the target entity.",
         helpLinkUri: HelpLink("PG010"));
 
+    /// <summary>
+    /// Reported when generated members are emitted with <c>internal</c> visibility because the DTO or entity type is not public.
+    /// </summary>
     public static readonly DiagnosticDescriptor GeneratedMembersSetToInternal = new(
         id: "PG101",
         title: "Generated members emitted as 'internal'",
@@ -80,6 +104,9 @@ public static class DiagnosticDescriptors
         description: "ToPredicate and HasFilter visibility matches the least accessible type in their signatures.",
         helpLinkUri: HelpLink("PG101"));
 
+    /// <summary>
+    /// Informational diagnostic confirming that predicate members were successfully generated for a DTO.
+    /// </summary>
     public static readonly DiagnosticDescriptor GenerationSucceeded = new(
         id: "PG200",
         title: "Predicate generation succeeded",
@@ -90,6 +117,9 @@ public static class DiagnosticDescriptors
         description: "Informational banner to confirm successful code emission.",
         helpLinkUri: HelpLink("PG200"));
 
+    /// <summary>
+    /// Reported when an unhandled exception occurs while generating code for a DTO.
+    /// </summary>
     public static readonly DiagnosticDescriptor UnexpectedGenerationFailure = new(
         id: "PG900",
         title: "Unexpected error during code generation",
@@ -102,6 +132,14 @@ public static class DiagnosticDescriptors
 
     private static string? HelpLink(string code) => HelpBase is { Length: > 0 } ? HelpBase + code.ToLowerInvariant() : null;
 
+    /// <summary>
+    /// Creates a <see cref="Diagnostic"/> for the given <paramref name="descriptor"/>, using the first location
+    /// of <paramref name="symbol"/> (or <see cref="Location.None"/> when the symbol is <see langword="null"/> or has no locations).
+    /// </summary>
+    /// <param name="descriptor">The diagnostic descriptor to instantiate.</param>
+    /// <param name="symbol">The symbol whose first declaration location is used to report the diagnostic.</param>
+    /// <param name="messageArgs">Arguments substituted into the descriptor's message format.</param>
+    /// <returns>The created <see cref="Diagnostic"/>.</returns>
     public static Diagnostic Create(DiagnosticDescriptor descriptor, ISymbol? symbol, params object?[] messageArgs)
     {
         var location = symbol?.Locations.FirstOrDefault() ?? Location.None;

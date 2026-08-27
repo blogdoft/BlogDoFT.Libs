@@ -10,9 +10,16 @@ using System.Text;
 
 namespace BlogDoFT.Libs.EntityFramework.CodeGenerator.Generators
 {
+    /// <summary>
+    /// Incremental source generator that emits <c>ToPredicate()</c> and <c>HasFilter()</c> members for
+    /// partial DTOs decorated with <see cref="GeneratePredicateAttribute{TEntity}"/>, based on the
+    /// <see cref="StringFilterAttribute"/>, <see cref="NumericFilterAttribute"/>, <see cref="TemporalFilterAttribute"/>,
+    /// and <see cref="BooleanFilterAttribute"/> annotations declared on their properties.
+    /// </summary>
     [Generator(LanguageNames.CSharp)]
     public sealed class PredicateGenerator : IIncrementalGenerator
     {
+        /// <inheritdoc/>
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             var candidates = context.SyntaxProvider

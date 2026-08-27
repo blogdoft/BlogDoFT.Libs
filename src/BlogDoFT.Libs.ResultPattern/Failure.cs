@@ -16,8 +16,22 @@ public record class Failure(string Code, string Message)
     private static readonly Lazy<Failure> _dataNotFound = new(() => new("common-404", "Resource not found."));
     private static readonly Lazy<Failure> _validationError = new(() => new("common-400", "Validation error occurred."));
 
+    /// <summary>
+    /// Gets a <see cref="Failure"/> instance that represents the absence of a failure,
+    /// used internally to signal a successful <see cref="Result"/>.
+    /// </summary>
     public static Failure None => _none.Value;
+
+    /// <summary>
+    /// Gets a reusable <see cref="Failure"/> with code <c>common-404</c>, indicating that
+    /// a requested resource could not be found.
+    /// </summary>
     public static Failure DataNotFound => _dataNotFound.Value;
+
+    /// <summary>
+    /// Gets a reusable <see cref="Failure"/> with code <c>common-400</c>, indicating that
+    /// input validation failed.
+    /// </summary>
     public static Failure ValidationError => _validationError.Value;
 }
 #pragma warning restore SA1313 // Parameter names should begin with lower-case letter

@@ -7,6 +7,7 @@ namespace BlogDoFT.Libs.WarmUp.Services;
 internal class PreloadingCommand : BaseWarmCommand
 {
     private const string LogMessage = "Pre-loading: {0}.";
+    private const string LogErrorMessage = "Error when pre-loading {0}: {1}";
     private const string PreloadingStart = "Preloading services.";
     private const string PreloadingEnd = "Preloading services finished.";
 
@@ -23,19 +24,23 @@ internal class PreloadingCommand : BaseWarmCommand
     public override Task Execute()
     {
         LogInfo(PreloadingStart);
-        Task.Run(() =>
+        using var scope = Provider.CreateScope();
+        foreach (var type in GetServices())
         {
-            using var scope = Provider.CreateScope();
-            foreach (var type in GetServices())
+            try
             {
                 scope.ServiceProvider.GetServices(type);
 
                 var logMessage = string.Format(LogMessage, type.FullName);
                 LogTrace(logMessage);
             }
+            catch (Exception exception)
+            {
+                LogError(string.Format(LogErrorMessage, type.FullName, exception.Message));
+            }
+        }
 
-            LogInfo(PreloadingEnd);
-        });
+        LogInfo(PreloadingEnd);
 
         return Task.CompletedTask;
     }

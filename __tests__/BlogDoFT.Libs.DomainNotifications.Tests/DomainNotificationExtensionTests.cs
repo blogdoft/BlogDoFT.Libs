@@ -43,7 +43,7 @@ public sealed class DomainNotificationExtensionTests
         // Then
         returnedServices.ShouldBe(services);
         descriptor.ShouldNotBeNull();
-        descriptor!.ServiceType.ShouldBe(typeof(IDomainNotifications));
+        descriptor.ServiceType.ShouldBe(typeof(IDomainNotifications));
         descriptor.ImplementationType.ShouldBe(typeof(DomainNotificationBag));
         descriptor.Lifetime.ShouldBe(ServiceLifetime.Scoped);
     }

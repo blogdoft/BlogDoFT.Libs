@@ -23,29 +23,24 @@ internal class WarmUpExecutor : BaseWarmCommand
         _warmUpHealthCheck = warmUpHealthCheck;
     }
 
-    public override Task Execute()
+    public override async Task Execute()
     {
         LogInfo("Executing warmup.");
-        Task.Run(async () =>
+        using var scope = Provider.CreateScope();
+        foreach (var type in GetCommands())
         {
-            using var scope = Provider.CreateScope();
-            foreach (var type in GetCommands())
+            if (scope.ServiceProvider.GetRequiredService(type) is not IWarmUpCommand warmUpCommand)
             {
-                if (scope.ServiceProvider.GetRequiredService(type) is not IWarmUpCommand warmUpCommand)
-                {
-                    continue;
-                }
-
-                await ExecuteWarmingUpAsync(warmUpCommand);
-                var logMessage = string.Format(LogMessage, warmUpCommand.GetType().FullName);
-                LogTrace(logMessage);
+                continue;
             }
 
-            _warmUpHealthCheck.WarmUpCompleted = true;
-            LogInfo("Warmup finished.");
-        });
+            await ExecuteWarmingUpAsync(warmUpCommand);
+            var logMessage = string.Format(LogMessage, warmUpCommand.GetType().FullName);
+            LogTrace(logMessage);
+        }
 
-        return Task.CompletedTask;
+        _warmUpHealthCheck.WarmUpCompleted = true;
+        LogInfo("Warmup finished.");
     }
 
     private IEnumerable<Type> GetCommands() =>

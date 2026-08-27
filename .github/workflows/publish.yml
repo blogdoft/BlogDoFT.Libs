@@ -45,6 +45,7 @@ jobs:
 
       - name: Pack projects with GitVersion
         run: |
+          echo "Package version: ${{ steps.gitversion.outputs.semVer }}"
           mkdir -p ./nupkgs
           for proj in $(find src -name '*.csproj'); do
             dotnet pack "$proj" \

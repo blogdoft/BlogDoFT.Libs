@@ -28,7 +28,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v4.7.0
         with:
-          versionSpec: '5.x'
+          versionSpec: '6.x'
 
       - name: Determine version with GitVersion
         id: gitversion
@@ -50,7 +50,7 @@ jobs:
             dotnet pack "$proj" \
               --configuration Release \
               --no-build \
-              /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }} \
+              /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
               --output ./nupkgs
           done
 

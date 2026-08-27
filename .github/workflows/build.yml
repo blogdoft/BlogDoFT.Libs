@@ -44,6 +44,10 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"blogdoft_BlogDoFT.Libs" /o:"blogdoft" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          if ($LASTEXITCODE -ne 0) { throw "sonarscanner begin failed with exit code $LASTEXITCODE" }
           dotnet build
+          if ($LASTEXITCODE -ne 0) { throw "dotnet build failed with exit code $LASTEXITCODE" }
           dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" --logger "trx"
+          if ($LASTEXITCODE -ne 0) { throw "dotnet test failed with exit code $LASTEXITCODE" }
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          if ($LASTEXITCODE -ne 0) { throw "sonarscanner end failed with exit code $LASTEXITCODE" }

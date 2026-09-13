@@ -1,7 +1,7 @@
 # Coding Standards (C#)
 
 ## 1. Technical baseline
-- **Target**: .NET 9 / C# 13. Only `BlogDoFT.Libs.EntityFramework.CodeGenerator*` stays on `netstandard2.0` for analyzer compatibility.
+- **Target**: .NET 10 / C# 14. Only `BlogDoFT.Libs.EntityFramework.CodeGenerator*` stays on `netstandard2.0` for analyzer compatibility.
 - **Nullable** always `enable`; address every warning before committing (`TreatWarningsAsErrors=true` on package projects).
 - **Implicit usings** are on; keep the `using` ordering defined in `.editorconfig` (no `System.*` group separation).
 - **Required analyzers**: Roslynator (code style/formatting), StyleCop, SonarAnalyzer. Do not disable rules without inline justification or docs.

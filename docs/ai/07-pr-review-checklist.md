@@ -1,5 +1,5 @@
 # PR Checklist
-- [ ] Build + tests (`dotnet test BlogDoFT.Libs.sln`) pass locally and in CI.
+- [ ] Build + tests (`dotnet test BlogDoFT.Libs.slnx`) pass locally and in CI.
 - [ ] No new warnings (nullability, analyzers, StyleCop). Run `dotnet build -warnaserror`.
 - [ ] Public changes documented (`docs/ai/*`, README, or XML summary) and, when relevant, logged in `09-decisions-log`.
 - [ ] New dependencies justified and aligned across all impacted projects.

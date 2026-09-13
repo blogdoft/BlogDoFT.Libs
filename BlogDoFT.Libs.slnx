@@ -1,0 +1,38 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/BlogDoFT.Libs.Api.OpenTelemetry/BlogDoFT.Libs.Api.OpenTelemetry.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Api/BlogDoFT.Libs.Api.csproj" />
+    <Project Path="src/BlogDoFT.Libs.DapperUtils.Abstractions/BlogDoFT.Libs.DapperUtils.Abstractions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.DapperUtils.Postgres/BlogDoFT.Libs.DapperUtils.Postgres.csproj" />
+    <Project Path="src/BlogDoFT.Libs.DomainNotifications.Extensions/BlogDoFT.Libs.DomainNotifications.Extensions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.DomainNotifications/BlogDoFT.Libs.DomainNotifications.csproj" />
+    <Project Path="src/BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions/BlogDoFT.Libs.EntityFramework.CodeGenerator.Abstractions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.EntityFramework.CodeGenerator/BlogDoFT.Libs.EntityFramework.CodeGenerator.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Extensions/BlogDoFT.Libs.Extensions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Flagr.Abstractions/BlogDoFT.Libs.Flagr.Abstractions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Flagr/BlogDoFT.Libs.Flagr.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Keycloak.Abstractions/BlogDoFT.Libs.Keycloak.Abstractions.csproj" />
+    <Project Path="src/BlogDoFT.Libs.Keycloak/BlogDoFT.Libs.Keycloak.csproj" />
+    <Project Path="src/BlogDoFT.Libs.ResultPattern/BlogDoFT.Libs.ResultPattern.csproj" />
+    <Project Path="src/BlogDoFT.Libs.WarmUp/BlogDoFT.Libs.WarmUp.csproj" />
+  </Folder>
+  <Folder Name="/__tests__/">
+    <Project Path="__tests__/BlogDoFT.Libs.Api.OpenTelemetry.Tests/BlogDoFT.Libs.Api.OpenTelemetry.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.Api.Tests/BlogDoFT.Libs.Api.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.DapperUtils.Abstractions.Tests/BlogDoFT.Libs.DapperUtils.Abstractions.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.DapperUtils.Postgres.Tests/BlogDoFT.Libs.DapperUtils.Postgres.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.DomainNotifications.Extensions.Tests/BlogDoFT.Libs.DomainNotifications.Extensions.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.DomainNotifications.Tests/BlogDoFT.Libs.DomainNotifications.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.EntityFramework.CodeGenerator.Tests/BlogDoFT.Libs.EntityFramework.CodeGenerator.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.Extensions.Tests/BlogDoFT.Libs.Extensions.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.Flagr.Tests/BlogDoFT.Libs.Flagr.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.Keycloak.Tests/BlogDoFT.Libs.Keycloak.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.ResultPattern.Tests/BlogDoFT.Libs.ResultPattern.Tests.csproj" />
+    <Project Path="__tests__/BlogDoFT.Libs.WarmUp.Tests/BlogDoFT.Libs.WarmUp.Tests.csproj" />
+  </Folder>
+</Solution>

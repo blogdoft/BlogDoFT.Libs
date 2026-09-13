@@ -35,13 +35,13 @@ jobs:
         uses: gittools/actions/gitversion/execute@v4.7.0
 
       - name: Restore dependencies
-        run: dotnet restore BlogDoFT.Libs.sln
+        run: dotnet restore BlogDoFT.Libs.slnx
 
       - name: Test Solution
         run: dotnet test --no-restore
 
       - name: Build solution
-        run: dotnet build BlogDoFT.Libs.sln --configuration Release --no-restore
+        run: dotnet build BlogDoFT.Libs.slnx --configuration Release --no-restore
 
       - name: Pack projects with GitVersion
         run: |

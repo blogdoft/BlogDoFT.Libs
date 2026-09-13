@@ -23,7 +23,7 @@
 ## 5. Commands
 ```bash
 # run everything
-DOTNET_ENVIRONMENT=Test dotnet test BlogDoFT.Libs.sln
+DOTNET_ENVIRONMENT=Test dotnet test BlogDoFT.Libs.slnx
 
 # consolidate coverage
 ./coverage_report.sh

@@ -1,7 +1,7 @@
 # Naming Rules
 
 ## 1. Solution & projects
-- **Solution**: `BlogDoFT.Libs.sln` aggregates libraries only; samples live under `samples/*`.
+- **Solution**: `BlogDoFT.Libs.slnx` aggregates libraries only; samples live under `samples/*`.
 - **Projects**: `BlogDoFT.Libs.<Context>[.<SubContext>]` (e.g., `BlogDoFT.Libs.DapperUtils.Postgres`). For helper packages (Abstractions, Extensions) keep the suffix explicit.
 - **Tests**: `__tests__/BlogDoFT.Libs.<Context>.Tests`. Mirror the same namespace tree as the production project.
 

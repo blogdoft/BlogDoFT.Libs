@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/FlagrExample/FlagrExample.csproj" />
+    <Project Path="../../src/BlogDoFT.Libs.Flagr/BlogDoFT.Libs.Flagr.csproj" />
+    <Project Path="../../src/BlogDoFT.Libs.Flagr.Abstractions/BlogDoFT.Libs.Flagr.Abstractions.csproj" />
+    <Project Path="../../src/BlogDoFT.Libs.Keycloak/BlogDoFT.Libs.Keycloak.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FlagrExample.Tests/FlagrExample.Tests.csproj" />
+  </Folder>
+</Solution>

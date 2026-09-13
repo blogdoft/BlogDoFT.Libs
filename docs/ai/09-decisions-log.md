@@ -1,4 +1,5 @@
 # ADR (Decisions)
+- **2026-09-13** — All libraries in the repository migrated to .NET 10 (except generators, which stay on `netstandard2.0` for analyzer host compatibility). Dependencies bumped to the latest versions supporting .NET 10 (EF Core 10, Npgsql 10, Microsoft.Extensions.* 10, Roslynator 5, NSubstitute 6, Swashbuckle.AspNetCore 10, xunit.runner.visualstudio 4, coverlet 10, etc.). Updated the AI docs, `docs/ai/05-libraries-and-versions.md`, and the `publish.yml` workflow's `dotnet-version` accordingly.
 - **2025-11-08** — All libraries in the repository must stay on .NET 9 (except generators on `netstandard2.0`). Updated the AI docs and consolidated instructions in this directory.
 - **2025-09-22** — `BlogDoFT.Libs.EntityFramework.CodeGenerator` detects `NpgsqlDbFunctionsExtensions.ILike` at compile time; when unavailable, it generates `EF.Functions.Like`. Reflection-free EF filters only.
 - **2025-08-15** — WarmUp exposes a dedicated health check with its own tag, returning `HealthStatus.Degraded` until every `IWarmUpCommand` completes.

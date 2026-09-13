@@ -1,10 +1,10 @@
 # AI Overview — BlogDoFT.Libs
-Updated: 2025-11-08 (TZ America/Sao_Paulo) — .NET 9 / C# 13 / EF Core 9
+Updated: 2026-09-13 (TZ America/Sao_Paulo) — .NET 10 / C# 14 / EF Core 10
 
 ## 1. Quick context
 - This repository hosts reusable libraries consumed by BlogDoFT services (vertical APIs and workers).
 - Libraries are small, focused, and independent (ResultPattern, DomainNotifications, Dapper utils, EF Source Generator, WarmUp, Api/Extensions).
-- All projects target `net9.0` (except analyzers/source generators on `netstandard2.0`). Nullable is always enabled.
+- All projects target `net10.0` (except analyzers/source generators on `netstandard2.0`). Nullable is always enabled.
 - Packages are published via `dotnet pack` + GitVersion. Do not introduce new dependencies without checking the impact on all consumers.
 
 ## 2. Stack & invariants

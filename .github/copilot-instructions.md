@@ -1,7 +1,7 @@
 # Repository Instructions for Copilot
 
 ## Baseline
-- Projects: C# 13 / .NET 9 / `nullable enable`. Generators/analyzers run on `netstandard2.0`.
+- Projects: C# 14 / .NET 10 / `nullable enable`. Generators/analyzers run on `netstandard2.0`.
 - Always read `docs/ai/00-overview.md` plus `01-coding-standards.md`, `02-naming-rules.md`, `03-architecture.md` before suggesting code.
 - Tests live in `__tests__/BlogDoFT.Libs.<Project>.Tests` with xUnit + Shouldly + NSubstitute.
 

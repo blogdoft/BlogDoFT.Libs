@@ -85,3 +85,7 @@ To enable Prometheus scraping endpoint set the metrics exporter to `Prometheus` 
 Notes
 - The library maps configuration into the `Observability` object model. See the `Observability` and nested classes for all available fields and defaults.
 - When using OTLP, the default endpoint is `http://localhost:4317` and default protocol is gRPC.
+
+## Versioning
+
+Starting with v10.0.0, this library's version numbering follows the major version of the .NET runtime it targets. For example, this version is compatible with .NET 10, so the major version is 10 — this explains the jump from the previous 1.x version series.

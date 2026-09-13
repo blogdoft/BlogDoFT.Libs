@@ -44,3 +44,7 @@ services
 Notes
 - `AddKeycloakTokenProvider` fails fast with an `OptionsValidationException` when `Keycloak:TokenEndpoint`, `Keycloak:ClientId` or `Keycloak:ClientSecret` is missing or empty.
 - `KeycloakAuthenticationHandler` is registered so it can be attached to other `HttpClient` registrations (e.g. the Flagr client from `BlogDoFT.Libs.Flagr`) via `AddHttpMessageHandler<KeycloakAuthenticationHandler>()`; it is never automatically applied to the token-provider's own client, since fetching a token cannot depend on already having one.
+
+## Versioning
+
+Starting with v10.0.0, this library's version numbering follows the major version of the .NET runtime it targets. For example, this version is compatible with .NET 10, so the major version is 10 — this explains the jump from the previous 1.x version series.

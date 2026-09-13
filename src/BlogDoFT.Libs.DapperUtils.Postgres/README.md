@@ -38,3 +38,7 @@ This library expects a connection string named `Default` in the `ConnectionStrin
 Notes and tips
 - The Npgsql connection factory sets the `SearchPath` to `public` by default. If your schema differs, update the connection builder in a custom factory or pass schema via configuration.
 - The project registers Dapper type handlers for `DateOnly` and `TimeOnly` to map to Postgres types. Ensure your database uses compatible column types.
+
+## Versioning
+
+Starting with v10.0.0, this library's version numbering follows the major version of the .NET runtime it targets. For example, this version is compatible with .NET 10, so the major version is 10 — this explains the jump from the previous 1.x version series.

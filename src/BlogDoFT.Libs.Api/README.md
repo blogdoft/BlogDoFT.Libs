@@ -53,3 +53,7 @@ Examples and recommended payloads
 
 Notes
 - This project is intentionally small — prefer to keep API-layer concerns (presentation, HTTP mapping) decoupled from domain logic. Use `BlogDoFT.Libs.ResultPattern` and `BlogDoFT.Libs.DomainNotifications` to standardize domain results and notifications.
+
+## Versioning
+
+Starting with v10.0.0, this library's version numbering follows the major version of the .NET runtime it targets. For example, this version is compatible with .NET 10, so the major version is 10 — this explains the jump from the previous 1.x version series.

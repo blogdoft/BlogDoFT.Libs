@@ -9,11 +9,11 @@ public class FeatureProviderTests
 {
     private static readonly Faker Faker = new();
 
-    private static IFlagResolver CreateResolverReturning(string? variantKey)
+    private static IFlagEvaluator CreateResolverReturning(string? variantKey)
     {
-        var resolver = Substitute.For<IFlagResolver>();
+        var resolver = Substitute.For<IFlagEvaluator>();
         resolver
-            .ResolveFlag<FeatureFlag>(Arg.Any<object>())
+            .EvaluateFlag<FeatureFlag>(Arg.Any<object>())
             .Returns(new EvaluationResponse { VariantKey = variantKey! });
         return resolver;
     }
@@ -65,9 +65,9 @@ public class FeatureProviderTests
         // Given
         var applicationName = Faker.Company.CompanyName();
         object? capturedContext = null;
-        var resolver = Substitute.For<IFlagResolver>();
+        var resolver = Substitute.For<IFlagEvaluator>();
         resolver
-            .ResolveFlag<FeatureFlag>(Arg.Do<object>(context => capturedContext = context))
+            .EvaluateFlag<FeatureFlag>(Arg.Do<object>(context => capturedContext = context))
             .Returns(new EvaluationResponse { VariantKey = "Feature1" });
         var provider = new FeatureProvider(resolver, applicationName);
 

@@ -1,4 +1,3 @@
-using BlogDoFT.Libs.Flagr;
 using BlogDoFT.Libs.Flagr.Tests.TestSupport;
 using Bogus;
 using System.Net;
@@ -7,29 +6,9 @@ using System.Text.Json;
 
 namespace BlogDoFT.Libs.Flagr.Tests;
 
-public class FlagResolverTests
+public class FlagEvaluatorTests
 {
     private static readonly Faker Faker = new();
-
-    // Never instantiated: used only as a generic type argument to derive the flag key.
-#pragma warning disable S2094
-    private sealed class SampleEntity;
-#pragma warning restore S2094
-
-    private static (FlagResolver Resolver, FakeHttpMessageHandler Handler) CreateResolver(
-        string responseBody,
-        HttpStatusCode statusCode = HttpStatusCode.OK)
-    {
-        var handler = new FakeHttpMessageHandler(_ => new HttpResponseMessage(statusCode)
-        {
-            Content = new StringContent(responseBody, Encoding.UTF8, "application/json"),
-        });
-        var httpClient = new HttpClient(handler)
-        {
-            BaseAddress = new Uri("http://flagr.test/api/"),
-        };
-        return (new FlagResolver(httpClient), handler);
-    }
 
     [Fact]
     public void Should_SendPostRequestToEvaluationEndpoint_When_ResolvingFlag()
@@ -38,7 +17,7 @@ public class FlagResolverTests
         var (resolver, handler) = CreateResolver("{}");
 
         // When
-        resolver.ResolveFlag<SampleEntity>(new { });
+        resolver.EvaluateFlag<SampleEntity>(new { });
 
         // Then
         handler.LastRequest.ShouldNotBeNull();
@@ -54,7 +33,7 @@ public class FlagResolverTests
         var (resolver, handler) = CreateResolver("{}");
 
         // When
-        resolver.ResolveFlag<SampleEntity>(new { ApplicationName = applicationName });
+        resolver.EvaluateFlag<SampleEntity>(new { ApplicationName = applicationName });
 
         // Then
         handler.LastRequestBody.ShouldNotBeNull();
@@ -88,7 +67,7 @@ public class FlagResolverTests
         var (resolver, _) = CreateResolver(responseJson);
 
         // When
-        var response = resolver.ResolveFlag<SampleEntity>(new { });
+        var response = resolver.EvaluateFlag<SampleEntity>(new { });
 
         // Then
         response.FlagId.ShouldBe(flagId);
@@ -107,9 +86,29 @@ public class FlagResolverTests
         var (resolver, _) = CreateResolver($$"""{"variantKey":"{{variantKey}}"}""", HttpStatusCode.NotFound);
 
         // When
-        var response = resolver.ResolveFlag<SampleEntity>(new { });
+        var response = resolver.EvaluateFlag<SampleEntity>(new { });
 
         // Then
         response.VariantKey.ShouldBe(variantKey);
     }
+
+    private static (FlagEvaluator Resolver, FakeHttpMessageHandler Handler) CreateResolver(
+        string responseBody,
+        HttpStatusCode statusCode = HttpStatusCode.OK)
+    {
+        var handler = new FakeHttpMessageHandler(_ => new HttpResponseMessage(statusCode)
+        {
+            Content = new StringContent(responseBody, Encoding.UTF8, "application/json"),
+        });
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("http://flagr.test/api/"),
+        };
+        return (new FlagEvaluator(httpClient), handler);
+    }
+
+    // Never instantiated: used only as a generic type argument to derive the flag key.
+#pragma warning disable S2094
+    private sealed class SampleEntity;
+#pragma warning restore S2094
 }

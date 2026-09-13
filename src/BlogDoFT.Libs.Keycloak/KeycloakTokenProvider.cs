@@ -1,5 +1,6 @@
 using BlogDoFT.Libs.Keycloak.Abstractions;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 
 namespace BlogDoFT.Libs.Keycloak;
@@ -14,7 +15,7 @@ public class KeycloakTokenProvider : IKeycloakTokenProvider
     private readonly KeycloakOptions _options;
     private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
-    private string _accessToken;
+    private string? _accessToken;
     private DateTimeOffset _expiresAt = DateTimeOffset.MinValue;
 
     public KeycloakTokenProvider(HttpClient httpClient, IOptions<KeycloakOptions> options)
@@ -26,16 +27,19 @@ public class KeycloakTokenProvider : IKeycloakTokenProvider
     public async Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
     {
         if (HasValidToken())
+        {
             return _accessToken;
+        }
 
-        await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
+        await _lock.WaitAsync(cancellationToken);
         try
         {
             if (HasValidToken())
+            {
                 return _accessToken;
+            }
 
-            await FetchTokenAsync(cancellationToken).ConfigureAwait(false);
-            return _accessToken;
+            return await FetchTokenAsync(cancellationToken);
         }
         finally
         {
@@ -43,10 +47,11 @@ public class KeycloakTokenProvider : IKeycloakTokenProvider
         }
     }
 
+    [MemberNotNullWhen(true, nameof(_accessToken))]
     private bool HasValidToken() =>
         _accessToken is not null && DateTimeOffset.UtcNow < _expiresAt;
 
-    private async Task FetchTokenAsync(CancellationToken cancellationToken)
+    private async Task<string> FetchTokenAsync(CancellationToken cancellationToken)
     {
         var requestedAt = DateTimeOffset.UtcNow;
         using var content = new FormUrlEncodedContent(new Dictionary<string, string>
@@ -58,14 +63,15 @@ public class KeycloakTokenProvider : IKeycloakTokenProvider
 
         using var response = await _httpClient
             .PostAsync(_options.TokenEndpoint, content, cancellationToken)
-            .ConfigureAwait(false);
+            ;
         response.EnsureSuccessStatusCode();
 
         var token = await response.Content
             .ReadFromJsonAsync<KeycloakTokenResponse>(cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ?? throw new InvalidOperationException("Keycloak token endpoint returned an empty response.");
 
         _accessToken = token.AccessToken;
         _expiresAt = requestedAt.AddSeconds(token.ExpiresIn - ExpiryBufferSeconds);
+        return _accessToken;
     }
 }

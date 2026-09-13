@@ -1,6 +1,6 @@
 # BlogDoFT.Libs.Flagr
 
-HTTP client to evaluate feature flags from a [Flagr](https://github.com/openflagr/flagr) server. Registers `IFlagResolver` (from `BlogDoFT.Libs.Flagr.Abstractions`) as a typed `HttpClient` and evaluates flags by posting to Flagr's `v1/evaluation` endpoint.
+HTTP client to evaluate feature flags from a [Flagr](https://github.com/openflagr/flagr) server. Registers `IFlagEvaluator` (from `BlogDoFT.Libs.Flagr.Abstractions`) as a typed `HttpClient` and evaluates flags by posting to Flagr's `v1/evaluation` endpoint.
 
 Purpose
 - Wire up a typed `HttpClient` pointed at a Flagr instance using `IOptions<FlagrOptions>`.
@@ -29,16 +29,16 @@ services.AddFlagr(options => options.BaseUrl = "https://flagr.example.com/api/")
 ```csharp
 public class MyFeature
 {
-    private readonly IFlagResolver _flagResolver;
+    private readonly IFlagEvaluator _FlagEvaluator;
 
-    public MyFeature(IFlagResolver flagResolver)
+    public MyFeature(IFlagEvaluator FlagEvaluator)
     {
-        _flagResolver = flagResolver;
+        _FlagEvaluator = FlagEvaluator;
     }
 
     public bool IsEnabled()
     {
-        var evaluation = _flagResolver.ResolveFlag<MyFeature>(new { });
+        var evaluation = _FlagEvaluator.EvaluateFlag<MyFeature>(new { });
         return evaluation.VariantKey == "on";
     }
 }

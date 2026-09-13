@@ -50,6 +50,7 @@ internal static class GeneratorTestHelper
     }
 }
 
+#pragma warning disable SA1402 // File may only contain a single type
 internal sealed class GeneratorRunResult
 {
     public GeneratorRunResult(ImmutableArray<Diagnostic> diagnostics, ImmutableArray<SyntaxTree> generatedTrees, ImmutableArray<Diagnostic> compilationErrors)
@@ -71,3 +72,4 @@ internal sealed class GeneratorRunResult
 
     public bool HasDiagnostic(string id) => Diagnostics.Any(diagnostic => diagnostic.Id == id);
 }
+#pragma warning restore SA1402 // File may only contain a single type

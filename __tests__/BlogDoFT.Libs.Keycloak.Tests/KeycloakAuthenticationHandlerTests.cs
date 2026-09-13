@@ -1,4 +1,3 @@
-using BlogDoFT.Libs.Keycloak;
 using BlogDoFT.Libs.Keycloak.Abstractions;
 using BlogDoFT.Libs.Keycloak.Tests.TestSupport;
 using Bogus;
@@ -11,7 +10,7 @@ public class KeycloakAuthenticationHandlerTests
     private static readonly Faker Faker = new();
 
     [Fact]
-    public async Task Should_AttachBearerTokenFromProvider_When_SendingRequest()
+    public async Task Should_AttachBearerTokenFromProvider_When_SendingRequestAsync()
     {
         // Given
         var accessToken = Faker.Random.AlphaNumeric(32);

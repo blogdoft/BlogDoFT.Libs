@@ -8,12 +8,20 @@ public class EvaluationResponse
     }
 
     public int FlagId { get; set; }
-    public string FlagKey { get; set; }
+
+    public string? FlagKey { get; set; }
+
     public int FlagSnapshotID { get; set; }
+
     public int SegmentID { get; set; }
+
     public int VariantID { get; set; }
-    public string VariantKey { get; set; }
-    public object VariantAttachment { get; set; }
+
+    public string? VariantKey { get; set; }
+
+    public object? VariantAttachment { get; set; }
+
     public virtual EvalContext EvalContext { get; protected set; }
-    public string Timestamp { get; set; }
+
+    public string? Timestamp { get; set; }
 }

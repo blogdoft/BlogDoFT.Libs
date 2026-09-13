@@ -1,4 +1,3 @@
-using BlogDoFT.Libs.Keycloak;
 using BlogDoFT.Libs.Keycloak.Abstractions;
 using BlogDoFT.Libs.Keycloak.Tests.TestSupport;
 using Bogus;
@@ -14,21 +13,8 @@ public class AddKeycloakTokenProviderTests
 {
     private static readonly Faker Faker = new();
 
-    private static IConfiguration BuildConfiguration(string? tokenEndpoint, string? clientId, string? clientSecret)
-    {
-        var settings = new Dictionary<string, string?>();
-        if (tokenEndpoint is not null)
-            settings["Keycloak:TokenEndpoint"] = tokenEndpoint;
-        if (clientId is not null)
-            settings["Keycloak:ClientId"] = clientId;
-        if (clientSecret is not null)
-            settings["Keycloak:ClientSecret"] = clientSecret;
-
-        return new ConfigurationBuilder().AddInMemoryCollection(settings).Build();
-    }
-
     [Fact]
-    public async Task Should_ResolveIKeycloakTokenProviderUsingConfiguredEndpoint_When_ConfigurationHasKeycloakSection()
+    public async Task Should_ResolveIKeycloakTokenProviderUsingConfiguredEndpoint_When_ConfigurationHasKeycloakSectionAsync()
     {
         // Given
         var tokenEndpoint = $"https://{Faker.Internet.DomainName()}/realms/demo/protocol/openid-connect/token";
@@ -103,5 +89,26 @@ public class AddKeycloakTokenProviderTests
 
         // Then
         Should.NotThrow(act);
+    }
+
+    private static IConfiguration BuildConfiguration(string? tokenEndpoint, string? clientId, string? clientSecret)
+    {
+        var settings = new Dictionary<string, string?>();
+        if (tokenEndpoint is not null)
+        {
+            settings["Keycloak:TokenEndpoint"] = tokenEndpoint;
+        }
+
+        if (clientId is not null)
+        {
+            settings["Keycloak:ClientId"] = clientId;
+        }
+
+        if (clientSecret is not null)
+        {
+            settings["Keycloak:ClientSecret"] = clientSecret;
+        }
+
+        return new ConfigurationBuilder().AddInMemoryCollection(settings).Build();
     }
 }

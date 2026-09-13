@@ -1,6 +1,6 @@
 # BlogDoFT.Libs.Flagr.Abstractions
 
-Contracts and DTOs for resolving feature flags from [Flagr](https://github.com/openflagr/flagr). Defines `IFlagResolver` and the evaluation types used by the Flagr client implementation, so consumers can depend on an abstraction instead of the HTTP client details.
+Contracts and DTOs for resolving feature flags from [Flagr](https://github.com/openflagr/flagr). Defines `IFlagEvaluator` and the evaluation types used by the Flagr client implementation, so consumers can depend on an abstraction instead of the HTTP client details.
 
 Purpose
 - Keep feature-flag evaluation contracts decoupled from the HTTP implementation.
@@ -8,21 +8,21 @@ Purpose
 
 Usage
 
-Reference this package when you only need to consume `IFlagResolver` (e.g. in application/domain code), and add `BlogDoFT.Libs.Flagr` in the composition root to provide the implementation.
+Reference this package when you only need to consume `IFlagEvaluator` (e.g. in application/domain code), and add `BlogDoFT.Libs.Flagr` in the composition root to provide the implementation.
 
 ```csharp
 public class MyFeature
 {
-    private readonly IFlagResolver _flagResolver;
+    private readonly IFlagEvaluator _FlagEvaluator;
 
-    public MyFeature(IFlagResolver flagResolver)
+    public MyFeature(IFlagEvaluator FlagEvaluator)
     {
-        _flagResolver = flagResolver;
+        _FlagEvaluator = FlagEvaluator;
     }
 
     public bool IsEnabled()
     {
-        var evaluation = _flagResolver.ResolveFlag<MyFeature>(new { });
+        var evaluation = _FlagEvaluator.EvaluateFlag<MyFeature>(new { });
         return evaluation.VariantKey == "on";
     }
 }

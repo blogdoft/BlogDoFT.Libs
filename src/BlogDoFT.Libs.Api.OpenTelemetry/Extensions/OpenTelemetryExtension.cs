@@ -20,6 +20,8 @@ namespace BlogDoFT.Libs.Api.OpenTelemetry.Extensions;
 /// </summary>
 public static class OpenTelemetryExtension
 {
+    private static readonly Uri DefaultOtlpEndpoint = new("http://localhost:4317");
+
     /// <summary>
     /// Registers OpenTelemetry services (metrics, tracing and logs) based on the <c>Observability</c> section of
     /// <paramref name="configuration"/>. If that section is not present, no OpenTelemetry services are registered.
@@ -161,7 +163,7 @@ public static class OpenTelemetryExtension
                         tracing.AddOtlpExporter(otlpOptions =>
                         {
                             otlpOptions.Protocol = observability.OtlpExporterOptions?.Protocol ?? OtlpExportProtocol.Grpc;
-                            otlpOptions.Endpoint = observability.OtlpExporterOptions?.Endpoint ?? new Uri("http://localhost:4317");
+                            otlpOptions.Endpoint = observability.OtlpExporterOptions?.Endpoint ?? DefaultOtlpEndpoint;
                         });
                         break;
 

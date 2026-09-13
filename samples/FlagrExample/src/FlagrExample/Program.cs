@@ -33,7 +33,7 @@ namespace FlagrExample
                 .AddHttpMessageHandler<KeycloakAuthenticationHandler>();
 
             services.AddSingleton<IFeatureProvider>(sp =>
-                new FeatureProvider(sp.GetRequiredService<IFlagResolver>(), "app3"));
+                new FeatureProvider(sp.GetRequiredService<IFlagEvaluator>(), "app3"));
 
             using var serviceProvider = services.BuildServiceProvider();
 

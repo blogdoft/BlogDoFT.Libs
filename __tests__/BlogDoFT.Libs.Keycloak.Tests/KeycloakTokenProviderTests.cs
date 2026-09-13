@@ -1,4 +1,3 @@
-using BlogDoFT.Libs.Keycloak;
 using BlogDoFT.Libs.Keycloak.Tests.TestSupport;
 using Bogus;
 using Microsoft.Extensions.Options;
@@ -11,24 +10,8 @@ public class KeycloakTokenProviderTests
 {
     private static readonly Faker Faker = new();
 
-    private static KeycloakOptions CreateOptions() => new()
-    {
-        TokenEndpoint = $"https://{Faker.Internet.DomainName()}/realms/demo/protocol/openid-connect/token",
-        ClientId = Faker.Random.AlphaNumeric(12),
-        ClientSecret = Faker.Random.AlphaNumeric(24),
-    };
-
-    private static HttpResponseMessage TokenResponse(string accessToken, int expiresIn) =>
-        new(HttpStatusCode.OK)
-        {
-            Content = new StringContent(
-                $$"""{"access_token":"{{accessToken}}","expires_in":{{expiresIn}},"token_type":"Bearer"}""",
-                Encoding.UTF8,
-                "application/json"),
-        };
-
     [Fact]
-    public async Task Should_RequestTokenUsingClientCredentialsGrant_When_NoTokenIsCached()
+    public async Task Should_RequestTokenUsingClientCredentialsGrant_When_NoTokenIsCachedAsync()
     {
         // Given
         var options = CreateOptions();
@@ -51,7 +34,7 @@ public class KeycloakTokenProviderTests
     }
 
     [Fact]
-    public async Task Should_ReuseCachedToken_When_RequestedAgainBeforeExpiry()
+    public async Task Should_ReuseCachedToken_When_RequestedAgainBeforeExpiryAsync()
     {
         // Given
         var options = CreateOptions();
@@ -75,7 +58,7 @@ public class KeycloakTokenProviderTests
     }
 
     [Fact]
-    public async Task Should_FetchNewToken_When_PreviousTokenHasExpired()
+    public async Task Should_FetchNewToken_When_PreviousTokenHasExpiredAsync()
     {
         // Given
         var options = CreateOptions();
@@ -100,4 +83,20 @@ public class KeycloakTokenProviderTests
         second.ShouldBe(secondToken);
         callCount.ShouldBe(2);
     }
+
+    private static KeycloakOptions CreateOptions() => new()
+    {
+        TokenEndpoint = $"https://{Faker.Internet.DomainName()}/realms/demo/protocol/openid-connect/token",
+        ClientId = Faker.Random.AlphaNumeric(12),
+        ClientSecret = Faker.Random.AlphaNumeric(24),
+    };
+
+    private static HttpResponseMessage TokenResponse(string accessToken, int expiresIn) =>
+        new(HttpStatusCode.OK)
+        {
+            Content = new StringContent(
+                $$"""{"access_token":"{{accessToken}}","expires_in":{{expiresIn}},"token_type":"Bearer"}""",
+                Encoding.UTF8,
+                "application/json"),
+        };
 }

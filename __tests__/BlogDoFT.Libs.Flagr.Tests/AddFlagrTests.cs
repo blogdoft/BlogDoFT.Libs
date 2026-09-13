@@ -1,4 +1,3 @@
-using BlogDoFT.Libs.Flagr;
 using BlogDoFT.Libs.Flagr.Abstractions;
 using BlogDoFT.Libs.Flagr.Tests.TestSupport;
 using Bogus;
@@ -13,24 +12,8 @@ public class AddFlagrTests
 {
     private static readonly Faker Faker = new();
 
-    // Never instantiated: used only as a generic type argument to derive the flag key.
-#pragma warning disable S2094
-    private sealed class SampleEntity;
-#pragma warning restore S2094
-
-    private static IConfiguration BuildConfiguration(string? baseUrl)
-    {
-        var settings = baseUrl is null
-            ? new Dictionary<string, string?>()
-            : new Dictionary<string, string?> { ["Flagr:BaseUrl"] = baseUrl };
-
-        return new ConfigurationBuilder()
-            .AddInMemoryCollection(settings)
-            .Build();
-    }
-
     [Fact]
-    public void Should_ResolveIFlagResolverUsingConfiguredBaseUrl_When_ConfigurationHasFlagrSection()
+    public void Should_ResolveIFlagEvaluatorUsingConfiguredBaseUrl_When_ConfigurationHasFlagrSection()
     {
         // Given
         var baseUrl = $"http://{Faker.Internet.DomainName()}/api/";
@@ -44,11 +27,11 @@ public class AddFlagrTests
         // When
         services.AddFlagr();
         services
-            .AddHttpClient<IFlagResolver, FlagResolver>()
+            .AddHttpClient<IFlagEvaluator, FlagEvaluator>()
             .ConfigurePrimaryHttpMessageHandler(() => handler);
         using var provider = services.BuildServiceProvider();
-        var flagResolver = provider.GetRequiredService<IFlagResolver>();
-        flagResolver.ResolveFlag<SampleEntity>(new { });
+        var flagEvaluator = provider.GetRequiredService<IFlagEvaluator>();
+        flagEvaluator.EvaluateFlag<SampleEntity>(new { });
 
         // Then
         handler.LastRequest.ShouldNotBeNull();
@@ -65,9 +48,25 @@ public class AddFlagrTests
         using var provider = services.BuildServiceProvider();
 
         // When
-        var act = () => provider.GetRequiredService<IFlagResolver>();
+        var act = () => provider.GetRequiredService<IFlagEvaluator>();
 
         // Then
         Should.Throw<OptionsValidationException>(act);
     }
+
+    private static IConfiguration BuildConfiguration(string? baseUrl)
+    {
+        var settings = baseUrl is null
+            ? new Dictionary<string, string?>()
+            : new Dictionary<string, string?> { ["Flagr:BaseUrl"] = baseUrl };
+
+        return new ConfigurationBuilder()
+            .AddInMemoryCollection(settings)
+            .Build();
+    }
+
+    // Never instantiated: used only as a generic type argument to derive the flag key.
+#pragma warning disable S2094
+    private sealed class SampleEntity;
+#pragma warning restore S2094
 }

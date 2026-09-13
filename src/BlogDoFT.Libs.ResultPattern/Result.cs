@@ -53,6 +53,7 @@ public class Result
     public static Result AsFailure(Failure failure) => new(failure);
 }
 
+#pragma warning disable SA1402 // File may only contain a single type
 /// <summary>
 /// Represents the outcome of an operation that produces a value of type
 /// <typeparamref name="TValue"/> on success, or a <see cref="Failure"/> otherwise.
@@ -125,3 +126,4 @@ public sealed class Result<TValue> : Result
     /// <returns>A <see cref="Result{TValue}"/> whose <see cref="Result.IsFailure"/> is <see langword="true"/>.</returns>
     public static Result<TValue> FromFailure(Failure failure) => new(failure);
 }
+#pragma warning restore SA1402 // File may only contain a single type

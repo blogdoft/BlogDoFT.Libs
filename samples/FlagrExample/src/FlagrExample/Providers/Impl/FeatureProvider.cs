@@ -9,10 +9,10 @@ namespace FlagrExample.Providers.Impl
     public class FeatureProvider : IFeatureProvider
     {
         private readonly Dictionary<FeatureFlag, Func<IMyFeature>> _features;
-        private readonly IFlagResolver _flagrResolver;
+        private readonly IFlagEvaluator _flagrResolver;
         private readonly string _applicationName;
 
-        public FeatureProvider(IFlagResolver flagrResolver, string applicationName)
+        public FeatureProvider(IFlagEvaluator flagrResolver, string applicationName)
         {
             _flagrResolver = flagrResolver;
             _features = new Dictionary<FeatureFlag, Func<IMyFeature>>
@@ -31,7 +31,7 @@ namespace FlagrExample.Providers.Impl
                 ApplicationName = _applicationName,
             };
 
-            var response = _flagrResolver.ResolveFlag<FeatureFlag>(entityContext);
+            var response = _flagrResolver.EvaluateFlag<FeatureFlag>(entityContext);
             var flag = ParseFlag(response);
 
             var getFlag = _features.GetValueOrDefault(flag);

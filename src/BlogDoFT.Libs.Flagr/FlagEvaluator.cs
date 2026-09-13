@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace BlogDoFT.Libs.Flagr;
 
-public class FlagResolver : IFlagResolver
+public class FlagEvaluator : IFlagEvaluator
 {
     private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
     {
@@ -15,15 +15,15 @@ public class FlagResolver : IFlagResolver
 
     private readonly HttpClient _httpClient;
 
-    public FlagResolver(HttpClient httpClient)
+    public FlagEvaluator(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public EvaluationResponse ResolveFlag<T>(object entityContext)
+    public EvaluationResponse EvaluateFlag<T>(object entityContext)
     {
         var request = GetRequest(typeof(T), entityContext);
-        return GetFlag(request).Result;
+        return GetFlagAsync(request).Result;
     }
 
     private EvaluationRequest GetRequest(Type type, object entityContext) =>
@@ -33,7 +33,7 @@ public class FlagResolver : IFlagResolver
             EntityContext = entityContext,
         };
 
-    private async Task<EvaluationResponse> GetFlag(EvaluationRequest request)
+    private async Task<EvaluationResponse> GetFlagAsync(EvaluationRequest request)
     {
         using var response = await _httpClient
             .PostAsJsonAsync("v1/evaluation", request, JsonOptions)

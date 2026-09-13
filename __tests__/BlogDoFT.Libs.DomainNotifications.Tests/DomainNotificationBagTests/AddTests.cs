@@ -1,6 +1,6 @@
 namespace BlogDoFT.Libs.DomainNotifications.Tests.DomainNotificationBagTests;
 
-public class AddNotificationTests : DomainNotificationBagBaseTests
+public class AddTests : DomainNotificationBagBaseTests
 {
     [Fact]
     public void Should_AddSingleMessage_When_ManuallyInputData()

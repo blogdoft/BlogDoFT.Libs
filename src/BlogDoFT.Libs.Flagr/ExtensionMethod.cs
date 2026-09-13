@@ -32,11 +32,10 @@ public static class ExtensionMethod
     private static IHttpClientBuilder ConfigureDeps(IServiceCollection services)
     {
         return services
-            .AddHttpClient<IFlagResolver, FlagResolver>((sp, client) =>
+            .AddHttpClient<IFlagEvaluator, FlagEvaluator>((sp, client) =>
             {
                 var options = sp.GetRequiredService<IOptions<FlagrOptions>>().Value;
                 client.BaseAddress = new Uri(options.BaseUrl);
             });
-
     }
 }

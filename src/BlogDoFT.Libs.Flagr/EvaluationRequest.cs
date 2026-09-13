@@ -8,10 +8,15 @@ internal class EvaluationRequest
         EnableDebug = false;
     }
 
-    public string EntityId { get; set; }
-    public string EntityType { get; set; }
-    public object EntityContext { get; set; }
+    public string? EntityId { get; set; }
+
+    public string? EntityType { get; set; }
+
+    public object? EntityContext { get; set; }
+
     public bool EnableDebug { get; set; }
-    public string FlagKey { get; set; }
+
+    public string? FlagKey { get; set; }
+
     public List<string> FlagTags { get; }
 }

@@ -4,7 +4,7 @@ namespace BlogDoFT.Libs.Flagr.Abstractions;
 /// Represents the evaluation context returned by Flagr, describing the entity and flag
 /// that were used to produce an evaluation result.
 /// </summary>
-public class EvalContext
+public sealed class EvalContext
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="EvalContext"/> class with an empty
@@ -21,7 +21,7 @@ public class EvalContext
     /// <value>
     /// "user-123"
     /// </value>
-    public string? EntityID { get; set; }
+    public string? EntityID { get; init; }
 
     /// <summary>
     /// Gets or sets the type of the entity that was evaluated.
@@ -29,7 +29,7 @@ public class EvalContext
     /// <value>
     /// "user"
     /// </value>
-    public string? EntityType { get; set; }
+    public string? EntityType { get; init; }
 
     /// <summary>
     /// Gets or sets the arbitrary context object supplied for the evaluation, used by
@@ -38,7 +38,7 @@ public class EvalContext
     /// <value>
     /// { "plan": "premium" }
     /// </value>
-    public object? EntityContext { get; set; }
+    public object? EntityContext { get; init; }
 
     /// <summary>
     /// Gets or sets whether debug information was requested for this evaluation.
@@ -46,7 +46,7 @@ public class EvalContext
     /// <value>
     /// "true"
     /// </value>
-    public string? EnableDebug { get; set; }
+    public string? EnableDebug { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the flag that was evaluated.
@@ -54,7 +54,7 @@ public class EvalContext
     /// <value>
     /// 42
     /// </value>
-    public int? FlagID { get; set; }
+    public int? FlagID { get; init; }
 
     /// <summary>
     /// Gets or sets the key of the flag that was evaluated.
@@ -62,7 +62,7 @@ public class EvalContext
     /// <value>
     /// "new-checkout-flow"
     /// </value>
-    public string? FlagKey { get; set; }
+    public string? FlagKey { get; init; }
 
     /// <summary>
     /// Gets the tags associated with the evaluated flag.

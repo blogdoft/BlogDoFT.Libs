@@ -5,7 +5,7 @@ namespace BlogDoFT.Libs.Flagr.Abstractions;
 /// <summary>
 /// Represents the response returned by Flagr for a flag evaluation request.
 /// </summary>
-public class EvaluationResponse
+public sealed class EvaluationResponse
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="EvaluationResponse"/> class with an
@@ -22,7 +22,7 @@ public class EvaluationResponse
     /// <value>
     /// 42
     /// </value>
-    public int FlagId { get; set; }
+    public int FlagId { get; init; }
 
     /// <summary>
     /// Gets or sets the key of the evaluated flag.
@@ -30,7 +30,7 @@ public class EvaluationResponse
     /// <value>
     /// "new-checkout-flow"
     /// </value>
-    public string? FlagKey { get; set; }
+    public string? FlagKey { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the flag snapshot used for this evaluation.
@@ -38,7 +38,7 @@ public class EvaluationResponse
     /// <value>
     /// 7
     /// </value>
-    public int FlagSnapshotID { get; set; }
+    public int FlagSnapshotID { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the segment that matched the evaluation context.
@@ -46,7 +46,7 @@ public class EvaluationResponse
     /// <value>
     /// 3
     /// </value>
-    public int SegmentID { get; set; }
+    public int SegmentID { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the variant returned for this evaluation.
@@ -54,7 +54,7 @@ public class EvaluationResponse
     /// <value>
     /// 1
     /// </value>
-    public int VariantID { get; set; }
+    public int VariantID { get; init; }
 
     /// <summary>
     /// Gets or sets the key of the variant returned for this evaluation.
@@ -62,7 +62,7 @@ public class EvaluationResponse
     /// <value>
     /// "enabled"
     /// </value>
-    public string? VariantKey { get; set; }
+    public string? VariantKey { get; init; }
 
     /// <summary>
     /// Flagr always return a JSON object into key-value paris.
@@ -70,12 +70,12 @@ public class EvaluationResponse
     /// <value>
     /// {}
     /// </value>
-    public JsonObject? VariantAttachment { get; set; }
+    public JsonObject? VariantAttachment { get; init; }
 
     /// <summary>
     /// Gets the context that was used to produce this evaluation result.
     /// </summary>
-    public virtual EvalContext EvalContext { get; protected set; }
+    public EvalContext EvalContext { get; init; }
 
     /// <summary>
     /// Gets or sets the timestamp at which the evaluation was performed.
@@ -83,5 +83,5 @@ public class EvaluationResponse
     /// <value>
     /// "2026-09-13T12:00:00Z"
     /// </value>
-    public string? Timestamp { get; set; }
+    public string? Timestamp { get; init; }
 }

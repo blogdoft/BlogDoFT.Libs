@@ -1,6 +1,7 @@
 using BlogDoFT.Libs.Flagr.Abstractions;
 using Bogus;
 using FlagrExample.Features.Impl;
+using FlagrExample.Flags;
 using FlagrExample.Providers.Impl;
 
 namespace FlagrExample.Tests.Providers;

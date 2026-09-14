@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace BlogDoFT.Libs.Flagr;
 
-public class FlagEvaluator : IFlagEvaluator
+internal class FlagEvaluator : IFlagEvaluator
 {
     private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
     {
@@ -20,13 +20,13 @@ public class FlagEvaluator : IFlagEvaluator
         _httpClient = httpClient;
     }
 
-    public EvaluationResponse EvaluateFlag<T>(object entityContext)
+    public EvaluationResponse EvaluateFlag<T>(object? entityContext = null)
     {
         var request = GetRequest(typeof(T), entityContext);
         return GetFlagAsync(request).Result;
     }
 
-    private EvaluationRequest GetRequest(Type type, object entityContext) =>
+    private EvaluationRequest GetRequest(Type type, object? entityContext) =>
         new EvaluationRequest
         {
             FlagKey = type.Name,
@@ -36,11 +36,10 @@ public class FlagEvaluator : IFlagEvaluator
     private async Task<EvaluationResponse> GetFlagAsync(EvaluationRequest request)
     {
         using var response = await _httpClient
-            .PostAsJsonAsync("v1/evaluation", request, JsonOptions)
-            .ConfigureAwait(false);
+            .PostAsJsonAsync("v1/evaluation", request, JsonOptions);
 
         return await response.Content
             .ReadFromJsonAsync<EvaluationResponse>(JsonOptions)
-            .ConfigureAwait(false);
+            ?? throw new InvalidOperationException("Failed to deserialize the evaluation response.");
     }
 }

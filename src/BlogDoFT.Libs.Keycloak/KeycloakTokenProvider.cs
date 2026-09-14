@@ -5,6 +5,10 @@ using System.Net.Http.Json;
 
 namespace BlogDoFT.Libs.Keycloak;
 
+/// <summary>
+/// Obtains and caches access tokens from Keycloak using the client credentials OAuth2
+/// flow, transparently renewing them shortly before they expire.
+/// </summary>
 public class KeycloakTokenProvider : IKeycloakTokenProvider
 {
     // Renew a little before actual expiry so a request never races a token
@@ -18,12 +22,26 @@ public class KeycloakTokenProvider : IKeycloakTokenProvider
     private string? _accessToken;
     private DateTimeOffset _expiresAt = DateTimeOffset.MinValue;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="KeycloakTokenProvider"/> class.
+    /// </summary>
+    /// <param name="httpClient">The HTTP client used to call the Keycloak token endpoint.</param>
+    /// <param name="options">The Keycloak client credentials configuration.</param>
     public KeycloakTokenProvider(HttpClient httpClient, IOptions<KeycloakOptions> options)
     {
         _httpClient = httpClient;
         _options = options.Value;
     }
 
+    /// <summary>
+    /// Gets a valid access token, reusing the cached one when it has not yet expired or
+    /// requesting a new one from Keycloak otherwise.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the request to Keycloak.</param>
+    /// <returns>
+    /// The access token to use as a bearer credential, e.g.
+    /// "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIn0...".
+    /// </returns>
     public async Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
     {
         if (HasValidToken())

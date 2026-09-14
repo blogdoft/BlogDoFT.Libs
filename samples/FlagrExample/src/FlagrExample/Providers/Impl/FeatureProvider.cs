@@ -1,6 +1,7 @@
 using BlogDoFT.Libs.Flagr.Abstractions;
 using FlagrExample.Features;
 using FlagrExample.Features.Impl;
+using FlagrExample.Flags;
 using System;
 using System.Collections.Generic;
 

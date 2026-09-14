@@ -31,5 +31,6 @@
     <InternalsVisibleTo Include="BlogDoFT.Libs.DomainNotifications.Tests" />
     <InternalsVisibleTo Include="BlogDoFT.Libs.DomainNotifications.Extensions.Tests" />
     <InternalsVisibleTo Include="BlogDoFT.Libs.WarmUp.Tests" />
+    <InternalsVisibleTo Include="BlogDoFT.Libs.Flagr.Tests" />
   </ItemGroup>
 </Project>

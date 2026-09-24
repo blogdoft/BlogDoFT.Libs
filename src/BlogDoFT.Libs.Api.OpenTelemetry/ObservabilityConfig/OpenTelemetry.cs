@@ -75,7 +75,7 @@ public class OpenTelemetry
 
     /// <summary>
     /// Gets a value indicating whether log exporting is active, i.e. <see cref="UseLogExporter"/> is not
-    /// <see cref="LogExporterOptions.DotNotUse"/>.
+    /// <see cref="LogExporterOptions.DoNotUse"/>.
     /// </summary>
-    public bool LogsActive => UseLogExporter != LogExporterOptions.DotNotUse;
+    public bool LogsActive => UseLogExporter != LogExporterOptions.DoNotUse;
 }

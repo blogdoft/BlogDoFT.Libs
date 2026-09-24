@@ -8,7 +8,7 @@ public enum LogExporterOptions
     /// <summary>
     /// Disables log exporting.
     /// </summary>
-    DotNotUse,
+    DoNotUse,
 
     /// <summary>
     /// Sends log entries to the console.

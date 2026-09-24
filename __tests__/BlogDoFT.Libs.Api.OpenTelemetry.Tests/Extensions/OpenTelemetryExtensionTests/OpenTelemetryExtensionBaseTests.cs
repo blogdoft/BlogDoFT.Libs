@@ -37,7 +37,7 @@ public abstract class OpenTelemetryExtensionBaseTests
             ["Observability:OpenTelemetry:ParseStateValues"] = "true",
             ["Observability:OpenTelemetry:UseMetricsExporter"] = "Console",
             ["Observability:OpenTelemetry:UseTracingExporter"] = "DoNotUse",
-            ["Observability:OpenTelemetry:UseLogExporter"] = "DotNotUse",
+            ["Observability:OpenTelemetry:UseLogExporter"] = "DoNotUse",
             ["Observability:OpenTelemetry:HistogramAggregation"] = "Explicit",
             ["Observability:AspNetCoreInstrumentation:RecordException"] = "true",
         };
